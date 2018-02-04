@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bocs</groupId>
-	<artifactId>kbcrm</artifactId>
+	<artifactId>cash</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>base</name>
-	<description>建滔建材微信预约平台</description>
+	<description>布谷鸟信息科技收银系统</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -116,6 +116,11 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -159,6 +164,11 @@
 			<groupId>com.lmax</groupId>
 			<artifactId>disruptor</artifactId>
 			<version>${disruptor.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 
 		<!--缓存-->
@@ -231,7 +241,19 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional><!-- optional=true,依赖不会传递，该项目依赖devtools；之后依赖myboot项目的项目如果想要使用devtools，需要重新引入 -->
 		</dependency>
-    </dependencies>
+
+		<dependency>
+			<groupId>com.alipay</groupId>
+			<artifactId>alipay-sdk</artifactId>
+			<version>20180104135026</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alipay</groupId>
+			<artifactId>alipay-trade-sdk</artifactId>
+			<version>20161215</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>
