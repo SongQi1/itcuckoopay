@@ -7,6 +7,7 @@ import com.alipay.api.AlipayResponse;
 import com.alipay.demo.trade.model.builder.RequestBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by liuyangkly on 15/10/22.
@@ -14,6 +15,8 @@ import org.apache.commons.logging.LogFactory;
 abstract class AbsAlipayService {
     protected Log log = LogFactory.getLog(getClass());
 
+    @Autowired
+    protected AlipayClient client ;
 
     /**
      * 验证bizContent对象
@@ -31,11 +34,10 @@ abstract class AbsAlipayService {
 
     /**
      * 调用AlipayClient的execute方法，进行远程调用
-     * @param client
      * @param request
      * @return
      */
-    protected AlipayResponse getResponse(AlipayClient client, AlipayRequest request) {
+    protected AlipayResponse getResponse(AlipayRequest request) {
         try {
             AlipayResponse response = client.execute(request);
             if (response != null) {

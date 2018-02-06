@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 public class AlipayTradeServiceImpl extends AbsAlipayTradeService {
 
 
+
     // 商户可以直接使用的pay方法
     @Override
     public AlipayF2FPayResult tradePay(AlipayTradePayRequestBuilder builder) {
@@ -46,7 +47,7 @@ public class AlipayTradeServiceImpl extends AbsAlipayTradeService {
         log.info("trade.pay bizContent:" + request.getBizContent());
 
         // 首先调用支付api
-        AlipayTradePayResponse response = (AlipayTradePayResponse) getResponse(client, request);
+        AlipayTradePayResponse response = (AlipayTradePayResponse) getResponse(request);
 
         AlipayF2FPayResult result = new AlipayF2FPayResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {

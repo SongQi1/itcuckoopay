@@ -17,12 +17,19 @@ import java.util.Map;
 public class ChooseDataSource extends AbstractRoutingDataSource {
 	public static Map<String, List<String>> METHODTYPE = new HashMap<String, List<String>>();
 
-	// 获取数据源名称
+	/**
+	 * 获取数据源名称
+	 * @return
+	 */
+	@Override
 	protected Object determineCurrentLookupKey() {
 		return HandleDataSource.getDataSource();
 	}
 
-	// 设置方法名前缀对应的数据源
+	/**
+	 * 设置方法名前缀对应的数据源
+	 * @param map
+	 */
 	public void setMethodType(Map<String, String> map) {
 		for (String key : map.keySet()) {
 			List<String> v = new ArrayList<String>();

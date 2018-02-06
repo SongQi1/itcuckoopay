@@ -1,16 +1,22 @@
 package com.alipay.demo.trade.config;
 
-
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
  * @author songqi
  * @date 2018/02/06
  */
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "alipay.info")
 public class Configs {
+    private static  Log log = LogFactory.getLog(Configs.class);
 
     /**
      * 支付宝openapi域名
@@ -43,6 +49,14 @@ public class Configs {
      * 支付宝RSA公钥，用于验签支付宝应答
      */
     private String alipayPublicKey;
+
+
+
+    @Bean
+    public AlipayClient alipayClient(){
+        return new DefaultAlipayClient(openApiDomain, appid, privateKey,
+                "json", "utf-8", alipayPublicKey, "RSA2");
+    }
 
 
     public String getOpenApiDomain() {

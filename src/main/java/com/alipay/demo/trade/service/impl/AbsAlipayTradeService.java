@@ -1,7 +1,6 @@
 package com.alipay.demo.trade.service.impl;
 
-import com.alipay.api.DefaultAlipayClient;
-import com.alipay.demo.trade.config.Configs;
+
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.AlipayResponse;
@@ -31,13 +30,10 @@ import java.util.concurrent.Executors;
  */
 abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayTradeService {
 
-    @Autowired
-    protected Configs configs;
 
     protected static ExecutorService executorService = Executors.newCachedThreadPool();
-
-    protected AlipayClient client = new DefaultAlipayClient(configs.getOpenApiDomain(), configs.getAppid(), configs.getPrivateKey(),
-            "json", "utf-8", configs.getAlipayPublicKey(), "RSA2");
+    @Autowired
+    protected AlipayClient client ;
 
     @Override
     public AlipayF2FQueryResult queryTradeResult(AlipayTradeQueryRequestBuilder builder) {
@@ -67,7 +63,7 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
         request.setBizContent(builder.toJsonString());
         log.info("trade.query bizContent:" + request.getBizContent());
 
-        return (AlipayTradeQueryResponse) getResponse(client, request);
+        return (AlipayTradeQueryResponse) getResponse(request);
     }
 
     @Override
@@ -80,7 +76,7 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
         request.setBizContent(builder.toJsonString());
         log.info("trade.refund bizContent:" + request.getBizContent());
 
-        AlipayTradeRefundResponse response = (AlipayTradeRefundResponse) getResponse(client, request);
+        AlipayTradeRefundResponse response = (AlipayTradeRefundResponse) getResponse(request);
 
         AlipayF2FRefundResult result = new AlipayF2FRefundResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
@@ -108,7 +104,7 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
         request.setBizContent(builder.toJsonString());
         log.info("trade.precreate bizContent:" + request.getBizContent());
 
-        AlipayTradePrecreateResponse response = (AlipayTradePrecreateResponse) getResponse(client, request);
+        AlipayTradePrecreateResponse response = (AlipayTradePrecreateResponse) getResponse(request);
 
         AlipayF2FPrecreateResult result = new AlipayF2FPrecreateResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
@@ -159,7 +155,7 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
         request.setBizContent(builder.toJsonString());
         log.info("trade.cancel bizContent:" + request.getBizContent());
 
-        return (AlipayTradeCancelResponse) getResponse(client, request);
+        return (AlipayTradeCancelResponse) getResponse(request);
     }
 
     // 轮询查询订单支付结果

@@ -35,6 +35,6 @@ public class AlipayMonitorServiceImpl extends AbsAlipayService implements Alipay
 
         AlipayClient client = new DefaultAlipayClient(configs.getMcloudApiDomain(), configs.getAppid(), configs.getPrivateKey(),
                 "json", "utf-8", "RSA2");
-        return (MonitorHeartbeatSynResponse) getResponse(client, request);
+        return (MonitorHeartbeatSynResponse) getResponse(request);
     }
 }

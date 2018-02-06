@@ -2,7 +2,6 @@ package com.alipay.demo.trade.model;
 
 
 import com.alipay.demo.trade.utils.Utils;
-import com.alipay.demo.trade.utils.Utils;
 import com.google.gson.annotations.SerializedName;
 
 /**

@@ -1,5 +1,6 @@
 package com.bocs;
 
+import com.alipay.demo.trade.config.Configs;
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
 
@@ -30,7 +31,14 @@ public class CashApplicationTests {
 	private AlipayTradeService alipayTradeService;
 
 	@Autowired
-	private SysUserService sysUserService;
+	private Configs configs;
+
+	@Test
+	public void testConfigs(){
+
+		System.out.println(configs.getAppid());
+
+	}
 
 	@Test
 	public void contextLoads() {
@@ -47,7 +55,7 @@ public class CashApplicationTests {
 		String totalAmount = "0.01";
 
 		// (必填) 付款条码，用户支付宝钱包手机app点击“付款”产生的付款条码
-		String authCode = "用户自己的支付宝付款码"; // 条码示例，286648048691290423
+		String authCode = "283862500003686200"; // 条码示例，286648048691290423
 		// (可选，根据需要决定是否使用) 订单可打折金额，可以配合商家平台配置折扣活动，如果订单部分商品参与打折，可以将部分商品总价填写至此字段，默认全部商品可打折
 		// 如果该值未传入,但传入了【订单总金额】,【不可打折金额】 则该值默认为【订单总金额】- 【不可打折金额】
 		//        String discountableAmount = "1.00"; //

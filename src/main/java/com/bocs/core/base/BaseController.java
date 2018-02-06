@@ -86,7 +86,7 @@ public abstract class BaseController {
 				modelMap.put("data", data);
 			}
 		}
-		if(HttpCode.OK.value() == code.value()){
+		if(HttpCode.OK.value().intValue() == code.value().intValue() ){
 			modelMap.put("success", true);
 		}else{
 			modelMap.put("success", false);

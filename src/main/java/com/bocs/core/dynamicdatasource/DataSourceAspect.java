@@ -24,8 +24,9 @@ public class DataSourceAspect {
 	private final Logger logger = LogManager.getLogger();
 
 
-
-	//切点的位置应该包含baseService的位置
+	/**
+	 * 切点的位置应该包含baseService的位置
+	 */
 	@Pointcut(value = "execution(* com.bocs..*Service.*(..))")
 	public void aspect() {}
 
