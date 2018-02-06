@@ -1,16 +1,10 @@
 package com.bocs;
 
-import com.alipay.demo.trade.config.Configs;
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
-
-import com.alipay.demo.trade.model.TradeStatus;
 import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
-import com.bocs.sys.service.SysUserService;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
@@ -30,18 +24,11 @@ public class CashApplicationTests {
 	@Autowired
 	private AlipayTradeService alipayTradeService;
 
-	@Autowired
-	private Configs configs;
+
+
 
 	@Test
-	public void testConfigs(){
-
-		System.out.println(configs.getAppid());
-
-	}
-
-	@Test
-	public void contextLoads() {
+	public void testTradePay() {
 		// (必填) 商户网站订单系统中唯一订单号，64个字符以内，只能包含字母、数字、下划线，
 		// 需保证商户系统端不能重复，建议通过数据库sequence生成，
 		String outTradeNo = "tradepay" + System.currentTimeMillis()
@@ -52,10 +39,10 @@ public class CashApplicationTests {
 
 		// (必填) 订单总金额，单位为元，不能超过1亿元
 		// 如果同时传入了【打折金额】,【不可打折金额】,【订单总金额】三者,则必须满足如下条件:【订单总金额】=【打折金额】+【不可打折金额】
-		String totalAmount = "0.01";
+		String totalAmount = "1111.11";
 
 		// (必填) 付款条码，用户支付宝钱包手机app点击“付款”产生的付款条码
-		String authCode = "283862500003686200"; // 条码示例，286648048691290423
+		String authCode = "284941791182794129"; // 条码示例，286648048691290423
 		// (可选，根据需要决定是否使用) 订单可打折金额，可以配合商家平台配置折扣活动，如果订单部分商品参与打折，可以将部分商品总价填写至此字段，默认全部商品可打折
 		// 如果该值未传入,但传入了【订单总金额】,【不可打折金额】 则该值默认为【订单总金额】- 【不可打折金额】
 		//        String discountableAmount = "1.00"; //
@@ -110,6 +97,23 @@ public class CashApplicationTests {
 		// 调用tradePay方法获取当面付应答
 		AlipayF2FPayResult result = alipayTradeService.tradePay(builder);
 
+		switch (result.getTradeStatus()){
+			case SUCCESS:
+				log.info("支付宝支付成功: )");
+				break;
+
+			case FAILED:
+				log.error("支付宝支付失败!!!");
+				break;
+
+			case UNKNOWN:
+				log.error("系统异常，订单状态未知!!!");
+				break;
+
+			default:
+				log.error("不支持的交易状态，交易返回异常!!!");
+				break;
+		}
 	}
 
 }

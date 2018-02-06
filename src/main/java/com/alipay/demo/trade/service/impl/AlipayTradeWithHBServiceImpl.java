@@ -1,14 +1,9 @@
 package com.alipay.demo.trade.service.impl;
 
-import com.alipay.demo.trade.service.impl.hb.HbListener;
-import com.alipay.demo.trade.service.impl.hb.TradeListener;
 import com.alipay.api.AlipayApiException;
-import com.alipay.api.AlipayClient;
-import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePayRequest;
 import com.alipay.api.response.AlipayTradePayResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.alipay.demo.trade.config.Configs;
 import com.alipay.demo.trade.config.Constants;
 import com.alipay.demo.trade.model.TradeStatus;
 import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
@@ -16,9 +11,6 @@ import com.alipay.demo.trade.model.builder.AlipayTradeQueryRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.service.impl.hb.HbListener;
 import com.alipay.demo.trade.service.impl.hb.TradeListener;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
 
 import java.net.ConnectException;
 import java.net.NoRouteToHostException;
@@ -36,10 +28,10 @@ public class AlipayTradeWithHBServiceImpl extends AbsAlipayTradeService {
     private TradeListener listener =  new HbListener();
 
 
-    private AlipayTradePayResponse getResponse(AlipayClient client, AlipayTradePayRequest request,
+    private AlipayTradePayResponse getResponse(AlipayTradePayRequest request,
                                                  final String outTradeNo, final long beforeCall) {
         try {
-            AlipayTradePayResponse response = client.execute(request);
+            AlipayTradePayResponse response = alipayClient.execute(request);
             if (response != null) {
                 log.info(response.getBody());
             }
@@ -102,7 +94,7 @@ public class AlipayTradeWithHBServiceImpl extends AbsAlipayTradeService {
 
         // 首先调用支付api
         final long beforeCall = System.currentTimeMillis();
-        AlipayTradePayResponse response = getResponse(client, request, outTradeNo, beforeCall);
+        AlipayTradePayResponse response = getResponse(request, outTradeNo, beforeCall);
 
         AlipayF2FPayResult result = new AlipayF2FPayResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {

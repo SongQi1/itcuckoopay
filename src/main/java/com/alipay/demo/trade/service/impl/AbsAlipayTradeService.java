@@ -1,8 +1,6 @@
 package com.alipay.demo.trade.service.impl;
 
 
-import com.alipay.demo.trade.service.AlipayTradeService;
-import com.alipay.api.AlipayClient;
 import com.alipay.api.AlipayResponse;
 import com.alipay.api.request.AlipayTradeCancelRequest;
 import com.alipay.api.request.AlipayTradePrecreateRequest;
@@ -19,9 +17,9 @@ import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.model.result.AlipayF2FQueryResult;
 import com.alipay.demo.trade.model.result.AlipayF2FRefundResult;
+import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.utils.Utils;
 import com.bocs.core.util.PropertiesUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,8 +30,7 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
 
 
     protected static ExecutorService executorService = Executors.newCachedThreadPool();
-    @Autowired
-    protected AlipayClient client ;
+
 
     @Override
     public AlipayF2FQueryResult queryTradeResult(AlipayTradeQueryRequestBuilder builder) {
