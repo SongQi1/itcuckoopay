@@ -59,6 +59,15 @@ public final class PropertiesUtil extends PropertyPlaceholderConfigurer {
     }
 
     /**
+     *  根据key获取值
+     * @param key
+     * @return
+     */
+    public static long getLong(String key){
+        return Long.parseLong(ctxPropertiesMap.get(key));
+    }
+
+    /**
      * 根据key获取值
      *
      * @param key
