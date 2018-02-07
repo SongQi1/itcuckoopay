@@ -5,6 +5,7 @@ import com.alipay.demo.trade.model.GoodsDetail;
 import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
+import com.bocs.sys.service.AlipayApiService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
@@ -23,7 +24,8 @@ public class CashApplicationTests {
 	private static Log log = LogFactory.getLog(CashApplicationTests.class);
 	@Autowired
 	private AlipayTradeService alipayTradeService;
-
+	@Autowired
+	private AlipayApiService alipayApiService;
 
 
 
@@ -114,6 +116,14 @@ public class CashApplicationTests {
 				log.error("不支持的交易状态，交易返回异常!!!");
 				break;
 		}
+	}
+
+	@Test
+	public void testRefreshAuthToken(){
+
+		String refreshToken = "201802BBf237e9eaa7264310b0e0d7e999fd5A03";
+
+		alipayApiService.refreshAppAuthToken(refreshToken);
 	}
 
 }

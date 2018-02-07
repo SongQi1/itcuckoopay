@@ -4,6 +4,7 @@ import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
 import com.alipay.demo.trade.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
 import com.alipay.demo.trade.service.AlipayAuthService;
 import com.bocs.core.exception.BusinessException;
+import com.bocs.sys.mapper.AlipayOpenAuthTokenMapper;
 import com.bocs.sys.model.AlipayOpenAuthToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ public class AlipayApiService {
 
     @Autowired
     private AlipayAuthService alipayAuthService;
+    @Autowired
+    private AlipayOpenAuthTokenMapper alipayOpenAuthTokenMapper;
 
 
 
@@ -44,10 +47,8 @@ public class AlipayApiService {
             token.setAuthAppId(response.getAuthAppId());
             token.insert();
         }else{
-            throw new BusinessException("授权失败，请重试！");
+            throw new BusinessException(response.getSubMsg());
         }
-
-
     }
 
 
@@ -55,6 +56,16 @@ public class AlipayApiService {
         AlipayOpenAuthTokenAppRequestBuilder builder = new AlipayOpenAuthTokenAppRequestBuilder()
                 .setGrantType("refresh_token").setRefreshToken(app_refresh_token);
         AlipayOpenAuthTokenAppResponse response = alipayAuthService.opentAuthTokenApp(builder);
-        System.out.println(response);
+        if(response.isSuccess()){
+            AlipayOpenAuthToken alipayOpenAuthToken = new AlipayOpenAuthToken();
+            alipayOpenAuthToken.setAppRefreshToken(app_refresh_token);
+            AlipayOpenAuthToken alipayOpenAuthTokenDb = alipayOpenAuthTokenMapper.selectOne(alipayOpenAuthToken);
+            alipayOpenAuthTokenDb.setAppRefreshToken(response.getAppRefreshToken());
+            alipayOpenAuthTokenDb.setAppAuthToken(response.getAppAuthToken());
+            alipayOpenAuthTokenMapper.updateById(alipayOpenAuthTokenDb);
+
+        }else{
+            throw new BusinessException(response.getSubMsg());
+        }
     }
 }
