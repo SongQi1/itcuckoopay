@@ -3,6 +3,7 @@ package com.bocs.sys.service;
 import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
 import com.alipay.demo.trade.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
 import com.alipay.demo.trade.service.AlipayAuthService;
+import com.bocs.core.exception.BusinessException;
 import com.bocs.sys.model.AlipayOpenAuthToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +33,20 @@ public class AlipayApiService {
 
         AlipayOpenAuthTokenAppResponse response = alipayAuthService.opentAuthTokenApp(builder);
 
-        AlipayOpenAuthToken token = new AlipayOpenAuthToken();
+        if(response.isSuccess()){
+            AlipayOpenAuthToken token = new AlipayOpenAuthToken();
 
-        token.setAppAuthToken(response.getAppAuthToken());
-        token.setAppRefreshToken(response.getAppRefreshToken());
-        token.setUserId(response.getUserId());
-        token.setExpiresIn(Long.parseLong(response.getExpiresIn()));
-        token.setReExpiresIn(Long.parseLong(response.getReExpiresIn()));
-        token.setAuthAppId(response.getAuthAppId());
-        token.insert();
+            token.setAppAuthToken(response.getAppAuthToken());
+            token.setAppRefreshToken(response.getAppRefreshToken());
+            token.setUserId(response.getUserId());
+            token.setExpiresIn(Long.parseLong(response.getExpiresIn()));
+            token.setReExpiresIn(Long.parseLong(response.getReExpiresIn()));
+            token.setAuthAppId(response.getAuthAppId());
+            token.insert();
+        }else{
+            throw new BusinessException("授权失败，请重试！");
+        }
+
 
     }
 
