@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="off">
 	<properties>
-		<property name="LOG_HOME">\output\logs</property>
+		<property name="LOG_HOME">logs</property>
 		<!-- 日志备份目录 -->
 		<property name="BACKUP_HOME">backup</property>
 		<property name="SERVER_NAME">iBase4J</property>
@@ -59,10 +59,15 @@
 		<logger name="com.alibaba.dubbo" level="WARN" />
 		<logger name="org.apache.activemq" level="INFO" />
 		<logger name="org.springframework" level="INFO" />
-		<logger name="org.apache.zookeeper" level="WARN" />
+		<logger name="com.bocs" level="INFO" />
+		<logger name="com.alipay" level="INFO" />
 		<logger name="com.baomidou.mybatisplus" level="INFO" />
 		<logger name="org.springframework.web" level="DEBUG" />
 		<AsyncLogger  name="com.bocs" level="${OUTPUT_LOG_LEVEL}" additivity="false" includeLocation="true">
+			<appender-ref ref="Console" />
+            <appender-ref ref="ProductLog" />
+        </AsyncLogger >
+		<AsyncLogger  name="com.alipay" level="${OUTPUT_LOG_LEVEL}" additivity="false" includeLocation="true">
 			<appender-ref ref="Console" />
             <appender-ref ref="ProductLog" />
         </AsyncLogger >

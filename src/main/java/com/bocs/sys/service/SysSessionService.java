@@ -25,14 +25,13 @@ public class SysSessionService extends BaseService<SysSession> {
 
 	@CachePut
 	@Transactional
+	@Override
 	public SysSession update(SysSession record) {
 		if (record != null && record.getId() == null) {
-			record.setUpdateTime(new Date());
 			Long id = ((SysSessionMapper) mapper).queryBySessionId(record.getSessionId());
 			if (id != null) {
 				mapper.updateById(record);
 			} else {
-				record.setCreateTime(new Date());
 				mapper.insert(record);
 			}
 		} else {
@@ -55,7 +54,6 @@ public class SysSessionService extends BaseService<SysSession> {
 		return null;
 	}
 
-	//
 	public void cleanExpiredSessions() {
 		String key = "spring:session:" + PropertiesUtil.getString("session.redis.namespace") + ":sessions:expires:";
 		Map<String, Object> columnMap = InstanceUtil.newHashMap();

@@ -110,17 +110,8 @@ public class SysSession extends BaseModel {
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
             && (this.getIp() == null ? other.getIp() == null : this.getIp().equals(other.getIp()))
             && (this.getStartTime() == null ? other.getStartTime() == null
-                : this.getStartTime().equals(other.getStartTime()))
-            && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null
-                : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null
-                : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null
-                : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getUpdateBy() == null ? other.getUpdateBy() == null
-                : this.getUpdateBy().equals(other.getUpdateBy()));
+                : this.getStartTime().equals(other.getStartTime()));
+
     }
 
     /**
@@ -134,12 +125,6 @@ public class SysSession extends BaseModel {
         result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getIp() == null) ? 0 : getIp().hashCode());
         result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
-        result = prime * result + ((getEnable() == null) ? 0 : getEnable().hashCode());
-        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getUpdateBy() == null) ? 0 : getUpdateBy().hashCode());
         return result;
     }
 }

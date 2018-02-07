@@ -1,4 +1,18 @@
-﻿
+﻿CREATE TABLE `alipay_open_auth_token` (
+  `id` bigint(20) NOT NULL,
+
+  `appAuthToken` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户授权令牌',
+  `userId` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权者的PID',
+  `authAppId` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权商户的AppId',
+  `expiresIn` bigint(20) DEFAULT NULL COMMENT '令牌有效期',
+  `reExpiresIn` bigint(20) DEFAULT NULL COMMENT '刷新令牌有效期',
+  `appRefreshToken` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '刷新令牌时使用',
+
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+COMMENT='支付宝第三方应用授权信息';
+
+
 CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL,
  
@@ -19,12 +33,6 @@ CREATE TABLE `sys_user` (
   `titleId` bigint(20) DEFAULT NULL COMMENT '职务ID',
   `managerId` bigint(20) DEFAULT NULL COMMENT '上级主管ID',
 
-  `enable` int(1) DEFAULT NULL,
-  `remark` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-  `createBy` bigint(20) DEFAULT NULL,
-  `createTime` datetime DEFAULT NULL,
-  `updateBy` bigint(20) DEFAULT NULL,
-  `updateTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `sys_user_phone_uindex` (`phone`),
   UNIQUE KEY `sys_user_userName_uindex` (`userName`),
@@ -39,13 +47,7 @@ CREATE TABLE `sys_session` (
   `account`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
   `ip`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
   `startTime`  datetime NOT NULL ,
-  
-  `enable` int(1) DEFAULT NULL,
-  `remark` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-  `createBy` bigint(20) DEFAULT NULL,
-  `createTime` datetime DEFAULT NULL,
-  `updateBy` bigint(20) DEFAULT NULL,
-  `updateTime` datetime DEFAULT NULL,
+
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 COMMENT='会话管理';

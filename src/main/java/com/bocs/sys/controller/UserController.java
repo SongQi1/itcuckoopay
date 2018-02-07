@@ -4,7 +4,6 @@ package com.bocs.sys.controller;
  * Description:<p> </p>
  * Created by songqi on 2017/8/27.
  */
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.bocs.core.base.AbstractController;
 import com.bocs.core.exception.BusinessException;
@@ -53,13 +52,11 @@ public class UserController extends AbstractController<SysUser> {
     @PostMapping
     @ApiOperation(value = "修改用户信息")
     @RequiresPermissions("sys.base.user.update")
+    @Override
     public Object update(ModelMap modelMap, @RequestBody SysUser param) {
         Assert.isNotBlank(param.getAccount(), "ACCOUNT");
         Assert.length(param.getAccount(), 3, 15, "ACCOUNT");
         if (param.getId() != null) {
-            if (param.getEnable() == null) {
-                param.setEnable(1);
-            }
             SysUser user = sysUserService.queryById(param.getId());
             Assert.notNull(user, "USER", param.getId());
             if (StringUtils.isNotBlank(param.getPassword())) {
@@ -77,6 +74,7 @@ public class UserController extends AbstractController<SysUser> {
     @ApiOperation(value = "查询用户")
     @RequiresPermissions("sys.base.user.read")
     @PutMapping(value = "/read/list")
+    @Override
     public Object query(ModelMap modelMap, @RequestBody Map<String, Object> param) {
         return super.query(modelMap, param);
     }
@@ -85,6 +83,7 @@ public class UserController extends AbstractController<SysUser> {
     @ApiOperation(value = "用户详细信息")
     @RequiresPermissions("sys.base.user.read")
     @PutMapping(value = "/read/detail")
+    @Override
     public Object get(ModelMap modelMap, @RequestBody SysUser param) {
         return super.get(modelMap, param);
     }
@@ -140,7 +139,6 @@ public class UserController extends AbstractController<SysUser> {
             throw new UnauthorizedException("原密码错误.");
         }
         param.setPassword(encryptPassword);
-        param.setUpdateBy(getCurrUser());
         return super.update(modelMap, param);
     }
 
@@ -202,7 +200,6 @@ public class UserController extends AbstractController<SysUser> {
     public Object addUser(SysUser user, ModelMap modelMap) {
         if (user.getId() == null) {
             user.setUserType("1");
-            user.setEnable(1);
         }
 
         sysUserService.update(user);
@@ -361,7 +358,6 @@ public class UserController extends AbstractController<SysUser> {
     public ModelAndView searchByKeyword(SysUser user,HttpServletRequest request) {
         Map<String, Object> params = new HashMap();
         params.put("userType", 1);
-        params.put("keyword",user.getKeyword());
         List<Long> userIds = sysUserService.searchByKeyword(params);
 
         List<SysUser> users = sysUserService.getList(userIds);
@@ -371,7 +367,6 @@ public class UserController extends AbstractController<SysUser> {
             dataList.add(stu.getNamePinyin());
             dataList.add(stu.getPhone());
             dataList.add(stu.getIdCard());
-            dataList.add(stu.getRemark());
             infos.add(dataList);
         }
         request.getSession().setAttribute("EXPORT_FILE", infos);

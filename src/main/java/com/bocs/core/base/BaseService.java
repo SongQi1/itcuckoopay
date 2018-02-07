@@ -36,6 +36,7 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 	protected BaseMapper<T> mapper;
 	protected ApplicationContext applicationContext;
 
+	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
@@ -86,6 +87,7 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 			for (int i = 0; i < ids.getRecords().size(); i++) {
 				final int index = i;
 				executorService.execute(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							records.set(index, queryById(ids.getRecords().get(index)));
@@ -121,6 +123,7 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 			for (int i = 0; i < ids.getRecords().size(); i++) {
 				final int index = i;
 				executorService.execute(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							records.set(index, InstanceUtil.transBean2Map(queryById(ids.getRecords().get(index))));
@@ -156,6 +159,7 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 			for (int i = 0; i < ids.getRecords().size(); i++) {
 				final int index = i;
 				executorService.execute(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							T t = queryById(ids.getRecords().get(index));
@@ -191,6 +195,7 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 			for (int i = 0; i < ids.size(); i++) {
 				final int index = i;
 				executorService.execute(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							list.set(index, queryById(ids.get(index)));
@@ -222,6 +227,7 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 			for (int i = 0; i < ids.size(); i++) {
 				final int index = i;
 				executorService.execute(new Runnable() {
+					@Override
 					public void run() {
 						try {
 							T t = queryById(ids.get(index));
@@ -244,19 +250,7 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 		return list;
 	}
 
-	@Transactional
-	public void del(Long id, Long userId) {
-		try {
-			T record = this.queryById(id);
-			record.setEnable(0);
-			record.setUpdateTime(new Date());
-			record.setUpdateBy(userId);
-			mapper.updateById(record);
 
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
-	}
 
 	@Transactional
 	public void delete(Long id) {
@@ -279,13 +273,10 @@ public abstract class BaseService<T extends BaseModel> implements ApplicationCon
 		return mapper.delete(wrapper);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Transactional
 	public T update(T record) {
 		try {
-			record.setUpdateTime(new Date());
 			if (record.getId() == null) {
-				record.setCreateTime(new Date());
 				mapper.insert(record);
 
 			} else {
