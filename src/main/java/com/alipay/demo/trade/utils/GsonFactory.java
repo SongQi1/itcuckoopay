@@ -21,7 +21,6 @@ public class GsonFactory {
         private static Gson gson = new GsonBuilder()
                                 .registerTypeAdapter(exceptionListType, new ExceptionInfoAdapter())
                                 .registerTypeAdapter(tradeInfoListType, new TradeInfoAdapter())
-                                .registerTypeAdapter(EquipStatus.class, new EquipStatusAdapter())
                                 .create();
     }
 
