@@ -2,17 +2,11 @@ package com.alipay.demo.trade.service.impl;
 
 
 import com.alipay.api.AlipayResponse;
-import com.alipay.api.request.AlipayTradeCancelRequest;
-import com.alipay.api.request.AlipayTradePrecreateRequest;
-import com.alipay.api.request.AlipayTradeQueryRequest;
-import com.alipay.api.request.AlipayTradeRefundRequest;
+import com.alipay.api.request.*;
 import com.alipay.api.response.*;
 import com.alipay.demo.trade.config.Constants;
 import com.alipay.demo.trade.model.TradeStatus;
-import com.alipay.demo.trade.model.builder.AlipayTradeCancelRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradeQueryRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradeRefundRequestBuilder;
+import com.alipay.demo.trade.model.builder.*;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.model.result.AlipayF2FQueryResult;
@@ -117,6 +111,21 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
             result.setTradeStatus(TradeStatus.FAILED);
         }
         return result;
+    }
+
+    @Override
+    public void tradeCreate(AlipayTradeCreateRequestBuilder builder) {
+        validateBuilder(builder);
+        AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
+        request.setNotifyUrl(builder.getNotifyUrl());
+        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+
+        // 设置业务参数
+        request.setBizContent(builder.toJsonString());
+        log.info("trade.create request content:" + builder.toString());
+
+        AlipayTradeCreateResponse response = (AlipayTradeCreateResponse) getResponse(request);
+
     }
 
     // 根据查询结果queryResponse判断交易是否支付成功，如果支付成功则更新result并返回，如果不成功则调用撤销

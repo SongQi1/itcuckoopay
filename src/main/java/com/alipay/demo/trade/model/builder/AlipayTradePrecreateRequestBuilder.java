@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.List;
 
 /**
- * Created by liuyangkly on 16/3/3.
+ * 预下单请求（创建二维码）
  */
 public class AlipayTradePrecreateRequestBuilder extends RequestBuilder {
 

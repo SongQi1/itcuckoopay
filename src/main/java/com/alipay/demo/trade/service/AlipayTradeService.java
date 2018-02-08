@@ -1,9 +1,6 @@
 package com.alipay.demo.trade.service;
 
-import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradeQueryRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradeRefundRequestBuilder;
+import com.alipay.demo.trade.model.builder.*;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.model.result.AlipayF2FQueryResult;
@@ -42,4 +39,11 @@ public interface AlipayTradeService {
      * @return
      */
     AlipayF2FPrecreateResult tradePrecreate(AlipayTradePrecreateRequestBuilder builder);
+
+
+    /**
+     * 统一下单接口
+     * @param builder
+     */
+    void tradeCreate(AlipayTradeCreateRequestBuilder builder);
 }
