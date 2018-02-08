@@ -50,7 +50,7 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
     public String toString() {
         final StringBuilder sb = new StringBuilder("AlipayTradePayRequestBuilder{");
         sb.append("bizContent=").append(bizContent);
-        sb.append(", super=").append(super.toString());
+        sb.append(", commonParams=").append(super.toString());
         sb.append('}');
         return sb.toString();
     }
@@ -278,7 +278,9 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         @SerializedName("goods_detail")
         private List<GoodsDetail> goodsDetailList;
 
-        // 商户操作员编号，添加此参数可以为商户操作员做销售统计
+        /**
+         * 商户操作员编号，添加此参数可以为商户操作员做销售统计
+         */
         @SerializedName("operator_id")
         private String operatorId;
 
@@ -314,26 +316,24 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder("BizContent{");
-            sb.append("scene='").append(scene).append('\'');
-            sb.append(", authCode='").append(authCode).append('\'');
-            sb.append(", outTradeNo='").append(outTradeNo).append('\'');
-            sb.append(", sellerId='").append(sellerId).append('\'');
-            sb.append(", totalAmount='").append(totalAmount).append('\'');
-            sb.append(", discountableAmount='").append(discountableAmount).append('\'');
-            sb.append(", undiscountableAmount='").append(undiscountableAmount).append('\'');
-            sb.append(", subject='").append(subject).append('\'');
-            sb.append(", body='").append(body).append('\'');
-            sb.append(", goodsDetailList=").append(goodsDetailList);
-            sb.append(", operatorId='").append(operatorId).append('\'');
-            sb.append(", storeId='").append(storeId).append('\'');
-            sb.append(", alipayStoreId='").append(alipayStoreId).append('\'');
-            sb.append(", terminalId='").append(terminalId).append('\'');
-            sb.append(", extendParams=").append(extendParams);
-            sb.append(", timeoutExpress='").append(timeoutExpress).append('\'');
-            sb.append('}');
-            return sb.toString();
+            return "{" +
+                    "scene='" + scene + '\'' +
+                    ", authCode='" + authCode + '\'' +
+                    ", outTradeNo='" + outTradeNo + '\'' +
+                    ", sellerId='" + sellerId + '\'' +
+                    ", totalAmount='" + totalAmount + '\'' +
+                    ", discountableAmount='" + discountableAmount + '\'' +
+                    ", undiscountableAmount='" + undiscountableAmount + '\'' +
+                    ", subject='" + subject + '\'' +
+                    ", body='" + body + '\'' +
+                    ", goodsDetailList=" + goodsDetailList +
+                    ", operatorId='" + operatorId + '\'' +
+                    ", storeId='" + storeId + '\'' +
+                    ", alipayStoreId='" + alipayStoreId + '\'' +
+                    ", terminalId='" + terminalId + '\'' +
+                    ", extendParams=" + extendParams +
+                    ", timeoutExpress='" + timeoutExpress + '\'' +
+                    '}';
         }
-
     }
 }

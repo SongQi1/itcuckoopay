@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,9 @@ import java.util.Map;
  * Created by liuyangkly on 16/3/2.
  */
 public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
+
+
+
 
     private BizContent bizContent = new BizContent();
 
@@ -33,12 +37,18 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
         if (StringUtils.isEmpty(bizContent.equipmentId)) {
             throw new NullPointerException("equipment_id should not be NULL!");
         }
-        if (bizContent.equipmentStatus == null) {
-            throw new NullPointerException("equipment_status should not be NULL!");
-        }
+
         if (StringUtils.isEmpty(bizContent.time)) {
             throw new NullPointerException("time should not be NULL!");
         }
+
+        if(StringUtils.isEmpty(bizContent.storeId)){
+            throw new NullPointerException("store_id should not be NULL!");
+        }
+        if(StringUtils.isEmpty(bizContent.networkType)){
+            throw new NullPointerException("network_type should not be NULL!");
+        }
+
         return true;
     }
 
@@ -49,6 +59,12 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
         sb.append(", super=").append(super.toString());
         sb.append('}');
         return sb.toString();
+    }
+
+    public AlipayHeartbeatSynRequestBuilder(){
+        bizContent.product = Product.FP;
+        bizContent.type = Type.CR;
+        bizContent.time = Utils.toDate(new Date());
     }
 
     @Override
@@ -79,68 +95,15 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
         return this;
     }
 
-    public String getBattery() {
-        return bizContent.battery;
+    public String getSysServiceProviderId() {
+        return bizContent.sysServiceProviderId;
     }
 
-    public AlipayHeartbeatSynRequestBuilder setBattery(String battery) {
-        bizContent.battery = battery;
+    public AlipayHeartbeatSynRequestBuilder setSysServiceProviderId(String sysServiceProviderId) {
+        bizContent.sysServiceProviderId = sysServiceProviderId;
         return this;
     }
 
-    public String getWifiMac() {
-        return bizContent.wifiMac;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setWifiMac(String wifiMac) {
-        bizContent.wifiMac = wifiMac;
-        return this;
-    }
-
-    public String getWifiName() {
-        return bizContent.wifiName;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setWifiName(String wifiName) {
-        bizContent.wifiName = wifiName;
-        return this;
-    }
-
-    public String getNetworkStatus() {
-        return bizContent.networkStatus;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setNetworkStatus(String networkStatus) {
-        bizContent.networkStatus = networkStatus;
-        return this;
-    }
-
-    public String getBbsPosition() {
-        return bizContent.bbsPosition;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setBbsPosition(String bbsPosition) {
-        bizContent.bbsPosition = bbsPosition;
-        return this;
-    }
-
-    public String getManufacturerPid() {
-        return bizContent.manufacturerPid;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setManufacturerPid(String manufacturerPid) {
-        bizContent.manufacturerPid = manufacturerPid;
-        return this;
-    }
-
-    public String getProviderId() {
-        return bizContent.providerId;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setProviderId(String providerId) {
-        bizContent.providerId = providerId;
-        return this;
-    }
 
     public String getEquipmentId() {
         return bizContent.equipmentId;
@@ -151,23 +114,6 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
         return this;
     }
 
-    public String getEquipmentPosition() {
-        return bizContent.equipmentPosition;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setEquipmentPosition(String equipmentPosition) {
-        bizContent.equipmentPosition = equipmentPosition;
-        return this;
-    }
-
-    public EquipStatus getEquipmentStatus() {
-        return bizContent.equipmentStatus;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setEquipmentStatus(EquipStatus equipmentStatus) {
-        bizContent.equipmentStatus = equipmentStatus;
-        return this;
-    }
 
     public List<ExceptionInfo> getExceptionInfoList() {
         return bizContent.exceptionInfoList;
@@ -184,15 +130,6 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
 
     public AlipayHeartbeatSynRequestBuilder setExtendInfo(Map<String, Object> extendInfo) {
         bizContent.extendInfo = extendInfo;
-        return this;
-    }
-
-    public String getIp() {
-        return bizContent.ip;
-    }
-
-    public AlipayHeartbeatSynRequestBuilder setIp(String ip) {
-        bizContent.ip = ip;
         return this;
     }
 
@@ -258,41 +195,20 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
         @SerializedName("equipment_id")
         private String equipmentId;
 
-        @SerializedName("equipment_status")
-        private EquipStatus equipmentStatus;
 
         private String time;
 
-        @SerializedName("manufacturer_app_id")
-        private String manufacturerPid;
-
-        @SerializedName("sys_service_provider_id")
-        private String providerId;
 
         @SerializedName("store_id")
         private String storeId;
 
-        @SerializedName("equipment_position")
-        private String equipmentPosition;
 
-        @SerializedName("bbs_position")
-        private String bbsPosition;
-
-        @SerializedName("network_status")
-        private String networkStatus;
 
         @SerializedName("network_type")
         private String networkType;
 
-        private String battery;
-
-        @SerializedName("wifi_mac")
-        private String wifiMac;
-
-        @SerializedName("wifi_name")
-        private String wifiName;
-
-        private String ip;
+        @SerializedName("sys_service_provider_id")
+        private String sysServiceProviderId;
 
         private String mac;
 
@@ -307,29 +223,19 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder("BizContent{");
-            sb.append("product=").append(product);
-            sb.append(", type=").append(type);
-            sb.append(", equipmentId='").append(equipmentId).append('\'');
-            sb.append(", equipmentStatus=").append(equipmentStatus);
-            sb.append(", time='").append(time).append('\'');
-            sb.append(", manufacturerPid='").append(manufacturerPid).append('\'');
-            sb.append(", providerId='").append(providerId).append('\'');
-            sb.append(", storeId='").append(storeId).append('\'');
-            sb.append(", equipmentPosition='").append(equipmentPosition).append('\'');
-            sb.append(", bbsPosition='").append(bbsPosition).append('\'');
-            sb.append(", networkStatus='").append(networkStatus).append('\'');
-            sb.append(", networkType='").append(networkType).append('\'');
-            sb.append(", battery='").append(battery).append('\'');
-            sb.append(", wifiMac='").append(wifiMac).append('\'');
-            sb.append(", wifiName='").append(wifiName).append('\'');
-            sb.append(", ip='").append(ip).append('\'');
-            sb.append(", mac='").append(mac).append('\'');
-            sb.append(", tradeInfoList=").append(tradeInfoList);
-            sb.append(", exceptionInfoList=").append(exceptionInfoList);
-            sb.append(", extendInfo=").append(extendInfo);
-            sb.append('}');
-            return sb.toString();
+            return "BizContent{" +
+                    "product=" + product +
+                    ", type=" + type +
+                    ", equipmentId='" + equipmentId + '\'' +
+                    ", time='" + time + '\'' +
+                    ", storeId='" + storeId + '\'' +
+                    ", networkType='" + networkType + '\'' +
+                    ", sysServiceProviderId='" + sysServiceProviderId + '\'' +
+                    ", mac='" + mac + '\'' +
+                    ", tradeInfoList=" + tradeInfoList +
+                    ", exceptionInfoList=" + exceptionInfoList +
+                    ", extendInfo=" + extendInfo +
+                    '}';
         }
     }
 }

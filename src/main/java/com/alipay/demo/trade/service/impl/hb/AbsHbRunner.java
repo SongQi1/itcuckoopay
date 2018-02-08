@@ -19,10 +19,16 @@ import java.util.concurrent.TimeUnit;
 public abstract class AbsHbRunner implements Runnable {
     protected Log log = LogFactory.getLog(getClass());
 
-    // 获取交易保障所需的信息
+    /**
+     * 获取交易保障所需的信息
+     * @return
+     */
     public abstract AlipayHeartbeatSynRequestBuilder getBuilder();
 
-    // 获取商户授权令牌，系统商通过此令牌帮助商户发起请求，完成业务
+    /**
+     * 获取商户授权令牌，系统商通过此令牌帮助商户发起请求，完成业务
+     * @return
+     */
     public abstract String getAppAuthToken();
 
     private ScheduledExecutorService scheduledService = Executors.newSingleThreadScheduledExecutor();

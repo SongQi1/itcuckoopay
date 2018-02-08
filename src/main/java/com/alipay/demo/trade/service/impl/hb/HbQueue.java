@@ -10,14 +10,18 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * Created by liuyangkly on 15/10/23.
- private List<BlockingQueue<E>> concurrentQueueList = Collections.synchronizedList(queueList);
+ * 存放交易的阻塞队列，用来向支付宝同步交易信息，为商家提供交易监控
+ * @author songqi
+ * @Date 2018/2/8
  */
 public class HbQueue {
     private static Log log = LogFactory.getLog(HbQueue.class);
 
-    public static final int QUEUE_SIZE = 300;   // 最多同时保存300条交易记录
-    private static final BlockingQueue<SysTradeInfo> queue = new ArrayBlockingQueue<SysTradeInfo>(QUEUE_SIZE);
+    /**
+     * 最多同时保存300条交易记录
+     */
+    public static final int QUEUE_SIZE = 300;
+    private static final BlockingQueue<SysTradeInfo> queue = new ArrayBlockingQueue<>(QUEUE_SIZE);
 
     public synchronized static void offer(SysTradeInfo info) {
         // blockingQueue不需要考虑队列满的情况，生产者会被阻塞直到队列被消耗
@@ -39,7 +43,7 @@ public class HbQueue {
         }
 
         int size = 30;
-        List<SysTradeInfo> tradeInfoList = new ArrayList<SysTradeInfo>(size);
+        List<SysTradeInfo> tradeInfoList = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             // 使用非阻塞poll
             SysTradeInfo info = queue.poll();

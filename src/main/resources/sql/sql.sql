@@ -5,7 +5,9 @@
   `userId` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权者的PID',
   `authAppId` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权商户的AppId',
   `expiresIn` bigint(20) DEFAULT NULL COMMENT '令牌有效期',
+  `expiresInDateTime` datetime DEFAULT NULL COMMENT '令牌有效期日期类型',
   `reExpiresIn` bigint(20) DEFAULT NULL COMMENT '刷新令牌有效期',
+  `reExpiresInDateTime` datetime DEFAULT NULL COMMENT '刷新令牌有效期日期类型',
   `appRefreshToken` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '刷新令牌时使用',
 
   PRIMARY KEY (`id`)

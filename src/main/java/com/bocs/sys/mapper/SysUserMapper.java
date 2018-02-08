@@ -3,6 +3,7 @@ package com.bocs.sys.mapper;
 import com.bocs.core.base.BaseMapper;
 import com.bocs.sys.model.SysUser;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,10 @@ import java.util.Map;
  * Description:<p> </p>
  * Created by songqi on 2017/7/25.
  */
+@Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    @Override
     List<Long> selectIdPage(@Param("cm") Map<String, Object> params);
 
 

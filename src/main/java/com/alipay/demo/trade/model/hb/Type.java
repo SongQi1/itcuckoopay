@@ -4,17 +4,24 @@ package com.alipay.demo.trade.model.hb;
  * Created by liuyangkly on 15/8/27.
  */
 public enum Type {
-     CR       // 收银机
+    // 收银机
+     CR
 
-    ,STORE    // 门店
+    // 门店
+    ,STORE
 
-    ,VM       // 售卖机
+    // 售卖机
+    ,VM
 
-    ,MD       // 医疗设备
+    // 医疗设备
+    ,MD
 
-    ,SOFT_POS // 软POS
+    // 软POS
+    ,SOFT_POS
 
-    ,POS      // POS终端
+    // POS终端
+    ,POS
 
-    ,ALI_POS  // 支付宝POS
+    // 支付宝POS
+    ,ALI_POS
 }

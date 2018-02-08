@@ -4,6 +4,7 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.AlipayRequest;
 import com.alipay.api.AlipayResponse;
+import com.alipay.api.internal.util.json.JSONWriter;
 import com.alipay.demo.trade.model.builder.RequestBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,9 +39,10 @@ abstract class AbsAlipayService {
      */
     protected AlipayResponse getResponse(AlipayRequest request) {
         try {
+            log.info("支付宝请求报文：" + new JSONWriter().write(request));
             AlipayResponse response = alipayClient.execute(request);
             if (response != null) {
-                log.info(response.getBody());
+                log.info("支付宝返回报文：" + new JSONWriter().write(response));
             }
             return response;
 

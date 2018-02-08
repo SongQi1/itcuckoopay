@@ -3,6 +3,8 @@ package com.bocs.sys.model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.bocs.core.base.BaseModel;
 
+import java.util.Date;
+
 /**
  * 描述:<p> </p>
  *
@@ -33,9 +35,19 @@ public class AlipayOpenAuthToken extends BaseModel{
     private long expiresIn;
 
     /**
+     * 交换令牌的有效期：日期格式
+     */
+    private Date expiresInDateTime;
+
+    /**
      * 刷新令牌有效期，单位秒，换算成天的话为372天
      */
     private long reExpiresIn;
+
+    /**
+     * 刷新令牌有效期：日期格式
+     */
+    private Date reExpiresInDateTime;
 
     /**
      * 刷新令牌时使用。刷新令牌后，我们会保证老的app_auth_token从刷新开始10分钟内可继续使用，请及时替换为最新token
@@ -74,12 +86,28 @@ public class AlipayOpenAuthToken extends BaseModel{
         this.expiresIn = expiresIn;
     }
 
+    public Date getExpiresInDateTime() {
+        return expiresInDateTime;
+    }
+
+    public void setExpiresInDateTime(Date expiresInDateTime) {
+        this.expiresInDateTime = expiresInDateTime;
+    }
+
     public long getReExpiresIn() {
         return reExpiresIn;
     }
 
     public void setReExpiresIn(long reExpiresIn) {
         this.reExpiresIn = reExpiresIn;
+    }
+
+    public Date getReExpiresInDateTime() {
+        return reExpiresInDateTime;
+    }
+
+    public void setReExpiresInDateTime(Date reExpiresInDateTime) {
+        this.reExpiresInDateTime = reExpiresInDateTime;
     }
 
     public String getAppRefreshToken() {

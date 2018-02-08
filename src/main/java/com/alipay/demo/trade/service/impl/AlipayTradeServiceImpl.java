@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
  *  一定要在创建AlipayTradeService之前调用Configs.init("xxxxxx");设置参数
  *
  */
-@Service(value = "tradeService")
+
 public class AlipayTradeServiceImpl extends AbsAlipayTradeService {
 
     @Autowired
@@ -52,11 +52,11 @@ public class AlipayTradeServiceImpl extends AbsAlipayTradeService {
         String appAuthToken = builder.getAppAuthToken();
         // todo 等支付宝sdk升级公共参数后使用如下方法
         // request.setAppAuthToken(appAuthToken);
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+        request.putOtherTextParam("app_auth_token", appAuthToken);
 
         // 设置业务参数
         request.setBizContent(builder.toJsonString());
-        log.info("trade.pay bizContent:" + request.getBizContent());
+        log.info("trade.pay request content:" + builder.toString());
 
         // 首先调用支付api
         AlipayTradePayResponse response = (AlipayTradePayResponse) getResponse(request);
