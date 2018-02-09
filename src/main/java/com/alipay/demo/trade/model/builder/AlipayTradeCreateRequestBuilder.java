@@ -2,19 +2,36 @@ package com.alipay.demo.trade.model.builder;
 
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
+import com.alipay.demo.trade.model.PartnerRole;
+import com.bocs.core.util.PropertiesUtil;
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
 /**
- * Description:<p> 统一下单请求</p>
+ * Description:<p> 统一下单创建请求</p>
  * Created by songqi on 2018/2/8.
  */
 public class AlipayTradeCreateRequestBuilder extends RequestBuilder{
     private BizContent bizContent = new BizContent();
     @Override
     public boolean validate() {
-        return false;
+
+        if(StringUtils.isEmpty(bizContent.outTradeNo)){
+            throw new NullPointerException("out_trade_no should not be NULL!");
+        }
+        if (StringUtils.isEmpty(bizContent.totalAmount)) {
+            throw new NullPointerException("total_amount should not be NULL!");
+        }
+        if (StringUtils.isEmpty(bizContent.subject)) {
+            throw new NullPointerException("subject should not be NULL!");
+        }
+        if(PartnerRole.ISV.getRole().equalsIgnoreCase(PropertiesUtil.getString("partnerRole"))
+                && (bizContent.extendParams == null || StringUtils.isEmpty(bizContent.extendParams.getSysServiceProviderId()))){
+            throw new NullPointerException("sys_service_provider_id should not be NULL!");
+        }
+        return true;
     }
 
     @Override
@@ -22,6 +39,24 @@ public class AlipayTradeCreateRequestBuilder extends RequestBuilder{
         return bizContent;
     }
 
+    @Override
+    public AlipayTradeCreateRequestBuilder setAppAuthToken(String appAuthToken) {
+        return (AlipayTradeCreateRequestBuilder) super.setAppAuthToken(appAuthToken);
+    }
+
+    @Override
+    public AlipayTradeCreateRequestBuilder setNotifyUrl(String notifyUrl) {
+        return (AlipayTradeCreateRequestBuilder) super.setNotifyUrl(notifyUrl);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AlipayTradeCreateRequestBuilder{");
+        sb.append("bizContent=").append(bizContent);
+        sb.append(", commonParams=").append(super.toString());
+        sb.append('}');
+        return sb.toString();
+    }
 
     public String getOutTradeNo() {
         return bizContent.outTradeNo;

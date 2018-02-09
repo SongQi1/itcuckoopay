@@ -2,6 +2,8 @@ package com.alipay.demo.trade.model.builder;
 
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
+import com.alipay.demo.trade.model.PartnerRole;
+import com.bocs.core.util.PropertiesUtil;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
 
@@ -9,7 +11,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Created by liuyangkly on 16/3/3.
+ * Created by songqi on 2018/2/8.
  */
 public class AlipayTradePayRequestBuilder extends RequestBuilder {
 
@@ -42,6 +44,10 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         }
         if (StringUtils.isEmpty(bizContent.storeId)) {
             throw new NullPointerException("store_id should not be NULL!");
+        }
+        if(PartnerRole.ISV.getRole().equalsIgnoreCase(PropertiesUtil.getString("partnerRole"))
+                && (bizContent.extendParams == null || StringUtils.isEmpty(bizContent.extendParams.getSysServiceProviderId()))){
+            throw new NullPointerException("sys_service_provider_id should not be NULL!");
         }
         return true;
     }
@@ -124,14 +130,6 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         return this;
     }
 
-    public String getUndiscountableAmount() {
-        return bizContent.undiscountableAmount;
-    }
-
-    public AlipayTradePayRequestBuilder setUndiscountableAmount(String undiscountableAmount) {
-        bizContent.undiscountableAmount = undiscountableAmount;
-        return this;
-    }
 
     public String getSubject() {
         return bizContent.subject;
@@ -178,14 +176,6 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         return this;
     }
 
-    public String getAlipayStoreId() {
-        return bizContent.alipayStoreId;
-    }
-
-    public AlipayTradePayRequestBuilder setAlipayStoreId(String alipayStoreId) {
-        bizContent.alipayStoreId = alipayStoreId;
-        return this;
-    }
 
     public String getTerminalId() {
         return bizContent.terminalId;
@@ -214,7 +204,33 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         return this;
     }
 
+    public String getProductCode() {
+        return bizContent.productCode;
+    }
+
+    public AlipayTradePayRequestBuilder setProductCode(String productCode) {
+        bizContent.productCode = productCode;
+        return this;
+    }
+
+    public String getBuyerId() {
+        return bizContent.buyerId;
+    }
+
+    public AlipayTradePayRequestBuilder setBuyerId(String buyerId) {
+        bizContent.buyerId = buyerId;
+        return this;
+    }
+
     public static class BizContent {
+
+        /**
+         *  商户网站订单系统中唯一订单号，64个字符以内，只能包含字母、数字、下划线，
+         *  需保证商户系统端不能重复，建议通过数据库sequence生成，
+         */
+        @SerializedName("out_trade_no")
+        private String outTradeNo;
+
         /**
          * 支付场景，条码支付场景为bar_code
          */
@@ -227,11 +243,24 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         private String authCode;
 
         /**
-         *  商户网站订单系统中唯一订单号，64个字符以内，只能包含字母、数字、下划线，
-         *  需保证商户系统端不能重复，建议通过数据库sequence生成，
+         * 销售产品码
          */
-        @SerializedName("out_trade_no")
-        private String outTradeNo;
+        @SerializedName("product_code ")
+        private String productCode;
+
+
+        /**
+         * 订单标题，粗略描述用户的支付目的。如“喜士多（浦东店）消费”
+         */
+        private String subject;
+
+        /**
+         * 买家的支付宝用户id，如果为空，会从传入了码值信息中获取买家ID
+         */
+        @SerializedName("buyer_id")
+        private String buyerId;
+
+
 
         /**
          * 卖家支付宝账号ID，用于支持一个签约账号下支持打款到不同的收款账号，(打款到sellerId对应的支付宝账号)
@@ -255,17 +284,8 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         @SerializedName("discountable_amount")
         private String discountableAmount;
 
-        /**
-         * 订单不可打折金额，此处单位为元，精确到小数点后2位，可以配合商家平台配置折扣活动，如果酒水不参与打折，则将对应金额填写至此字段
-         * 如果该值未传入,但传入了【订单总金额】,【打折金额】,则该值默认为【订单总金额】-【打折金额】
-         */
-        @SerializedName("undiscountable_amount")
-        private String undiscountableAmount;
 
-        /**
-         * 订单标题，粗略描述用户的支付目的。如“喜士多（浦东店）消费”
-         */
-        private String subject;
+
 
         /**
          * 订单描述，可以对交易或商品进行一个详细地描述，比如填写"购买商品2件共15.00元"
@@ -290,11 +310,6 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         @SerializedName("store_id")
         private String storeId;
 
-        /**
-         * 支付宝商家平台中配置的商户门店号，详询支付宝技术支持
-         */
-        @SerializedName("alipay_store_id")
-        private String alipayStoreId;
 
         /**
          * 商户机具终端编号，当以机具方式接入支付宝时必传，详询支付宝技术支持
@@ -302,11 +317,13 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         @SerializedName("terminal_id")
         private String terminalId;
 
+
         /**
          * 业务扩展参数，目前可添加由支付宝分配的系统商编号(通过setSysServiceProviderId方法)，详情请咨询支付宝技术支持
          */
         @SerializedName("extend_params")
         private ExtendParams extendParams;
+
 
         /**
          * (推荐使用，相对时间) 支付超时时间，5m 5分钟
@@ -314,22 +331,23 @@ public class AlipayTradePayRequestBuilder extends RequestBuilder {
         @SerializedName("timeout_express")
         private String timeoutExpress;
 
+
         @Override
         public String toString() {
             return "{" +
-                    "scene='" + scene + '\'' +
+                    "outTradeNo='" + outTradeNo + '\'' +
+                    ", scene='" + scene + '\'' +
                     ", authCode='" + authCode + '\'' +
-                    ", outTradeNo='" + outTradeNo + '\'' +
+                    ", productCode='" + productCode + '\'' +
+                    ", subject='" + subject + '\'' +
+                    ", buyerId='" + buyerId + '\'' +
                     ", sellerId='" + sellerId + '\'' +
                     ", totalAmount='" + totalAmount + '\'' +
                     ", discountableAmount='" + discountableAmount + '\'' +
-                    ", undiscountableAmount='" + undiscountableAmount + '\'' +
-                    ", subject='" + subject + '\'' +
                     ", body='" + body + '\'' +
                     ", goodsDetailList=" + goodsDetailList +
                     ", operatorId='" + operatorId + '\'' +
                     ", storeId='" + storeId + '\'' +
-                    ", alipayStoreId='" + alipayStoreId + '\'' +
                     ", terminalId='" + terminalId + '\'' +
                     ", extendParams=" + extendParams +
                     ", timeoutExpress='" + timeoutExpress + '\'' +

@@ -1,8 +1,10 @@
 package com.bocs;
 
+import com.alipay.demo.trade.config.Configs;
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
 import com.alipay.demo.trade.model.builder.AlipayHeartbeatSynRequestBuilder;
+import com.alipay.demo.trade.model.builder.AlipayTradeCreateRequestBuilder;
 import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.service.AlipayMonitorService;
@@ -29,7 +31,8 @@ public class CashApplicationTests {
 	private static Log log = LogFactory.getLog(CashApplicationTests.class);
 	@Autowired
 	private AlipayTradeService alipayTradeService;
-
+	@Autowired
+	private Configs configs;
 
 	@Autowired
 	private AlipayApiService alipayApiService;
@@ -37,8 +40,8 @@ public class CashApplicationTests {
 	@Autowired
 	private AlipayApiScheduleService alipayApiScheduleService;
 
-	//卖家授权给APP的token
-	String appAuthToken = "201802BBfb1ef08a30304bc0a94b239534a6aE03";//
+	//卖家授权给APP的token。一年有效期
+	String appAuthToken = "201802BBfb1ef08a30304bc0a94b239534a6aE03";
 
 	@Test
 	public void testTradePay() {
@@ -60,9 +63,7 @@ public class CashApplicationTests {
 		// 如果该值未传入,但传入了【订单总金额】,【不可打折金额】 则该值默认为【订单总金额】- 【不可打折金额】
 		//        String discountableAmount = "1.00"; //
 
-		// (可选) 订单不可打折金额，可以配合商家平台配置折扣活动，如果酒水不参与打折，则将对应金额填写至此字段
-		// 如果该值未传入,但传入了【订单总金额】,【打折金额】,则该值默认为【订单总金额】-【打折金额】
-		String undiscountableAmount = "0.0";
+
 
 		// 卖家支付宝账号ID，用于支持一个签约账号下支持打款到不同的收款账号，(打款到sellerId对应的支付宝账号)
 		// 如果该字段为空，则默认为与支付宝签约的商户的PID，也就是appid对应的PID
@@ -79,8 +80,9 @@ public class CashApplicationTests {
 		// (必填) 商户门店编号，通过门店号和商家后台可以配置精准到门店的折扣信息，详询支付宝技术支持
 		String storeId = "test_store_id";
 
-		// 业务扩展参数，目前可添加由支付宝分配的系统商编号(通过setSysServiceProviderId方法)，详情请咨询支付宝技术支持
-		String providerId = "2088100200300400500";
+		// 业务扩展参数，系统商编号
+		//该参数作为系统商返佣数据提取的依据，请填写系统商签约协议的PID
+		String providerId = configs.getPid();
 		ExtendParams extendParams = new ExtendParams();
 		extendParams.setSysServiceProviderId(providerId);
 
@@ -106,7 +108,7 @@ public class CashApplicationTests {
 
 				.setOutTradeNo(outTradeNo).setSubject(subject).setAuthCode(authCode)
 				.setTotalAmount(totalAmount).setStoreId(storeId)
-				.setUndiscountableAmount(undiscountableAmount).setBody(body).setOperatorId(operatorId)
+				.setBody(body).setOperatorId(operatorId)
 				.setExtendParams(extendParams).setSellerId(sellerId)
 				.setGoodsDetailList(goodsDetailList).setTimeoutExpress(timeoutExpress);
 
@@ -150,5 +152,20 @@ public class CashApplicationTests {
 		}
 
 		alipayApiScheduleService.alipayHeartbeatSyn();
+	}
+
+
+	@Test
+	public void testTradeCreate(){
+
+		String outTradeNo = "tradepay" + System.currentTimeMillis()
+				+ (long) (Math.random() * 10000000L);
+		AlipayTradeCreateRequestBuilder builder = new AlipayTradeCreateRequestBuilder()
+				//.setAppAuthToken(appAuthToken)
+				.setOutTradeNo(outTradeNo).setTotalAmount("0.1")
+				.setSubject("测试交易创建接口");
+				//.setExtendParams(new ExtendParams().setSysServiceProviderId(configs.getPid()));
+
+		alipayTradeService.tradeCreate(builder);
 	}
 }

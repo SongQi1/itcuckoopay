@@ -2,6 +2,8 @@ package com.alipay.demo.trade.model.builder;
 
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
+import com.alipay.demo.trade.model.PartnerRole;
+import com.bocs.core.util.PropertiesUtil;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
 
@@ -33,6 +35,10 @@ public class AlipayTradePrecreateRequestBuilder extends RequestBuilder {
         if (StringUtils.isEmpty(bizContent.storeId)) {
             throw new NullPointerException("store_id should not be NULL!");
         }
+        if(PartnerRole.ISV.getRole().equalsIgnoreCase(PropertiesUtil.getString("partnerRole"))
+                && (bizContent.extendParams == null || StringUtils.isEmpty(bizContent.extendParams.getSysServiceProviderId()))){
+            throw new NullPointerException("sys_service_provider_id should not be NULL!");
+        }
         return true;
     }
 
@@ -40,7 +46,7 @@ public class AlipayTradePrecreateRequestBuilder extends RequestBuilder {
     public String toString() {
         final StringBuilder sb = new StringBuilder("AlipayTradePrecreateRequestBuilder{");
         sb.append("bizContent=").append(bizContent);
-        sb.append(", super=").append(super.toString());
+        sb.append(", commonParams=").append(super.toString());
         sb.append('}');
         return sb.toString();
     }

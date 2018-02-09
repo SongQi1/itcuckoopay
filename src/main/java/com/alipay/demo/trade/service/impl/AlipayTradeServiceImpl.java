@@ -37,7 +37,7 @@ public class AlipayTradeServiceImpl extends AbsAlipayTradeService {
     }
 
 
-    // 商户可以直接使用的pay方法
+
     @Override
     public AlipayF2FPayResult tradePay(AlipayTradePayRequestBuilder builder) {
 
@@ -53,7 +53,6 @@ public class AlipayTradeServiceImpl extends AbsAlipayTradeService {
         // todo 等支付宝sdk升级公共参数后使用如下方法
         // request.setAppAuthToken(appAuthToken);
         request.putOtherTextParam("app_auth_token", appAuthToken);
-
         // 设置业务参数
         request.setBizContent(builder.toJsonString());
         log.info("trade.pay request content:" + builder.toString());

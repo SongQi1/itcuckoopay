@@ -116,6 +116,8 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
     @Override
     public void tradeCreate(AlipayTradeCreateRequestBuilder builder) {
         validateBuilder(builder);
+
+
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
         request.setNotifyUrl(builder.getNotifyUrl());
         request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
@@ -125,6 +127,8 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
         log.info("trade.create request content:" + builder.toString());
 
         AlipayTradeCreateResponse response = (AlipayTradeCreateResponse) getResponse(request);
+
+
 
     }
 
