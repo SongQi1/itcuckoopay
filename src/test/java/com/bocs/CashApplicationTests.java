@@ -3,13 +3,13 @@ package com.bocs;
 import com.alipay.demo.trade.config.Configs;
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
-import com.alipay.demo.trade.model.builder.AlipayHeartbeatSynRequestBuilder;
+import com.alipay.demo.parking.model.InterfaceInfo;
+import com.alipay.demo.trade.model.builder.AlipayEcoMycarParkingConfigSetRequestBuilder;
 import com.alipay.demo.trade.model.builder.AlipayTradeCreateRequestBuilder;
 import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
-import com.alipay.demo.trade.service.AlipayMonitorService;
 import com.alipay.demo.trade.service.AlipayTradeService;
-import com.alipay.demo.trade.service.impl.hb.HbQueue;
+import com.alipay.demo.trade.service.impl.AlipayParkingService;
 import com.alipay.demo.trade.utils.Utils;
 import com.bocs.sys.service.AlipayApiScheduleService;
 import com.bocs.sys.service.AlipayApiService;
@@ -32,10 +32,14 @@ public class CashApplicationTests {
 	@Autowired
 	private AlipayTradeService alipayTradeService;
 	@Autowired
+	private AlipayParkingService alipayParkingService;
+
+	@Autowired
 	private Configs configs;
 
 	@Autowired
 	private AlipayApiService alipayApiService;
+
 
 	@Autowired
 	private AlipayApiScheduleService alipayApiScheduleService;
@@ -167,5 +171,22 @@ public class CashApplicationTests {
 				//.setExtendParams(new ExtendParams().setSysServiceProviderId(configs.getPid()));
 
 		alipayTradeService.tradeCreate(builder);
+	}
+
+
+	@Test
+	public void testParkingSet(){
+		List<InterfaceInfo> inferfaceInfoList = new ArrayList<>();
+
+		InterfaceInfo interfaceInfo = InterfaceInfo.newInstance("alipay.eco.mycar.parking.userpage.query","interface_page","https://www.itcuckoo.com/cash/queryParkingFee");
+		inferfaceInfoList.add(interfaceInfo);
+
+		AlipayEcoMycarParkingConfigSetRequestBuilder builder = new AlipayEcoMycarParkingConfigSetRequestBuilder()
+				.setMerchantName("布谷鸟信息科技（昆山）有限公司")
+				.setMerchantServicePhone("13776346982")
+				.setAccountNo("songqi@itcuckoo.com")
+				.setAppAuthToken(appAuthToken)
+				.setInterfaceInfoList(inferfaceInfoList);
+		alipayParkingService.parkingConfigSet(builder);
 	}
 }

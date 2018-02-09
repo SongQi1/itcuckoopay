@@ -7,7 +7,9 @@ import com.alipay.demo.trade.model.result.AlipayF2FQueryResult;
 import com.alipay.demo.trade.model.result.AlipayF2FRefundResult;
 
 /**
- * Created by liuyangkly on 15/7/29.
+ * 支付宝当面付交易
+ * @author songqi
+ * @Date 2018/02/09
  */
 public interface AlipayTradeService {
 
@@ -42,7 +44,7 @@ public interface AlipayTradeService {
 
 
     /**
-     * 统一下单接口
+     * 当面付2.0统一下单接口
      * @param builder
      */
     void tradeCreate(AlipayTradeCreateRequestBuilder builder);
