@@ -1,9 +1,9 @@
 package com.bocs.sys.service;
 
 import com.alipay.api.response.MonitorHeartbeatSynResponse;
-import com.alipay.demo.trade.model.builder.AlipayHeartbeatSynRequestBuilder;
-import com.alipay.demo.trade.service.AlipayMonitorService;
-import com.alipay.demo.trade.service.impl.hb.HbQueue;
+import com.alipay.trade.model.builder.AlipayHeartbeatSynRequestBuilder;
+import com.alipay.trade.service.AlipayMonitorService;
+import com.alipay.trade.service.impl.hb.HbQueue;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

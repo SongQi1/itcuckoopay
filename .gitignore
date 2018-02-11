@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+logs/
+target/
+/logs/
+/.idea/
+/mvnw.cmd
+/mvnw
+/itcuckoopay.iml
+/target/

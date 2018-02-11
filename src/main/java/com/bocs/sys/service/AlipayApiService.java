@@ -1,11 +1,10 @@
 package com.bocs.sys.service;
 
 import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
-import com.alipay.demo.trade.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
-import com.alipay.demo.trade.service.AlipayAuthService;
+import com.alipay.trade.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
+import com.alipay.trade.service.AlipayAuthService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.bocs.core.exception.BusinessException;
-import com.bocs.core.util.DateUtil;
 import com.bocs.sys.mapper.AlipayOpenAuthTokenMapper;
 import com.bocs.sys.model.AlipayOpenAuthToken;
 import org.apache.commons.lang.time.DateUtils;

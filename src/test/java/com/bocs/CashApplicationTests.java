@@ -1,16 +1,16 @@
 package com.bocs;
 
-import com.alipay.demo.trade.config.Configs;
-import com.alipay.demo.trade.model.ExtendParams;
-import com.alipay.demo.trade.model.GoodsDetail;
-import com.alipay.demo.parking.model.InterfaceInfo;
-import com.alipay.demo.trade.model.builder.AlipayEcoMycarParkingConfigSetRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradeCreateRequestBuilder;
-import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
-import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
-import com.alipay.demo.trade.service.AlipayTradeService;
-import com.alipay.demo.trade.service.impl.AlipayParkingService;
-import com.alipay.demo.trade.utils.Utils;
+import com.alipay.trade.config.Configs;
+import com.alipay.trade.model.ExtendParams;
+import com.alipay.trade.model.GoodsDetail;
+import com.alipay.parking.model.InterfaceInfo;
+import com.alipay.trade.model.builder.AlipayEcoMycarParkingConfigSetRequestBuilder;
+import com.alipay.trade.model.builder.AlipayTradeCreateRequestBuilder;
+import com.alipay.trade.model.builder.AlipayTradePayRequestBuilder;
+import com.alipay.trade.model.result.AlipayF2FPayResult;
+import com.alipay.trade.service.AlipayTradeService;
+import com.alipay.trade.service.impl.AlipayParkingService;
+import com.alipay.trade.utils.Utils;
 import com.bocs.sys.service.AlipayApiScheduleService;
 import com.bocs.sys.service.AlipayApiService;
 import org.apache.commons.logging.Log;
