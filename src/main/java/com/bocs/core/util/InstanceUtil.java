@@ -172,10 +172,8 @@ public final class InstanceUtil {
 	/**
 	 * 封装实体
 	 * 
-	 * @param cls
-	 *            实体类
-	 * @param list
-	 *            实体Map集合
+	 * @param cls 实体类
+	 * @param list 实体Map集合
 	 * @return
 	 */
 	public static final <E> List<E> getInstanceList(Class<E> cls, List<?> list) {

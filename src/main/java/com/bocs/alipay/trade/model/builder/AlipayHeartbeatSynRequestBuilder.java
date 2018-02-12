@@ -1,7 +1,6 @@
 package com.bocs.alipay.trade.model.builder;
 
 import com.bocs.alipay.trade.utils.Utils;
-import com.alipay.trade.model.hb.*;
 import com.bocs.alipay.trade.model.hb.*;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
