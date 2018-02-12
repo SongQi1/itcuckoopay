@@ -62,11 +62,14 @@ public final class EmailSender {
 			hostName = PropertiesUtil.getString("email.smtp.host");
 		}
 		logger.info(Resources.getMessage("EMAIL.SET_HOST"), hostName);
-		if (props == null)
-			props = System.getProperties(); // 获得系统属性对象
-		props.put("mail.smtp.host", hostName); // 设置SMTP主机
-		// props.put("mail.smtp.port", "995");
-		// props.put("")
+		if (props == null){
+			// 获得系统属性对象
+			props = System.getProperties();
+			// 设置SMTP主机
+			props.put("mail.smtp.host", hostName);
+			// props.put("mail.smtp.port", "995");
+			// props.put("")
+		}
 	}
 
 	/**

@@ -1,8 +1,8 @@
 package com.bocs.sys.service;
 
 import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
-import com.alipay.trade.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
-import com.alipay.trade.service.AlipayAuthService;
+import com.bocs.alipay.trade.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
+import com.bocs.alipay.trade.service.AlipayAuthService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.bocs.core.exception.BusinessException;
 import com.bocs.sys.mapper.AlipayOpenAuthTokenMapper;
