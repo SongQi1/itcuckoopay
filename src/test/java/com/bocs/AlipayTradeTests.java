@@ -7,6 +7,7 @@ import com.bocs.alipay.model.InterfaceInfo;
 import com.bocs.alipay.model.builder.AlipayEcoMycarParkingConfigSetRequestBuilder;
 import com.bocs.alipay.model.builder.AlipayTradeCreateRequestBuilder;
 import com.bocs.alipay.model.builder.AlipayTradePayRequestBuilder;
+import com.bocs.alipay.model.result.AlipayF2FCreateResult;
 import com.bocs.alipay.model.result.AlipayF2FPayResult;
 import com.bocs.alipay.service.AlipayTradeService;
 import com.bocs.alipay.service.impl.AlipayParkingService;
@@ -31,8 +32,7 @@ public class AlipayTradeTests {
 	private static Log log = LogFactory.getLog(AlipayTradeTests.class);
 	@Autowired
 	private AlipayTradeService alipayTradeService;
-	@Autowired
-	private AlipayParkingService alipayParkingService;
+
 
 	@Autowired
 	private Configs configs;
@@ -44,7 +44,7 @@ public class AlipayTradeTests {
 	@Autowired
 	private AlipayApiScheduleService alipayApiScheduleService;
 
-	//卖家授权给APP的token。一年有效期
+	//沙箱环境中的商户账号授权给APP的token。一年有效期
 	String appAuthToken = "201802BBfb1ef08a30304bc0a94b239534a6aE03";
 
 	@Test
@@ -165,28 +165,15 @@ public class AlipayTradeTests {
 		String outTradeNo = "tradepay" + System.currentTimeMillis()
 				+ (long) (Math.random() * 10000000L);
 		AlipayTradeCreateRequestBuilder builder = new AlipayTradeCreateRequestBuilder()
-				//.setAppAuthToken(appAuthToken)
-				.setOutTradeNo(outTradeNo).setTotalAmount("0.1")
-				.setSubject("测试交易创建接口");
-				//.setExtendParams(new ExtendParams().setSysServiceProviderId(configs.getPid()));
-
-		alipayTradeService.tradeCreate(builder);
-	}
-
-
-	@Test
-	public void testParkingSet(){
-		List<InterfaceInfo> inferfaceInfoList = new ArrayList<>();
-
-		InterfaceInfo interfaceInfo = InterfaceInfo.newInstance("alipay.eco.mycar.parking.userpage.query","interface_page","https://www.itcuckoo.com/cash/queryParkingFee");
-		inferfaceInfoList.add(interfaceInfo);
-
-		AlipayEcoMycarParkingConfigSetRequestBuilder builder = new AlipayEcoMycarParkingConfigSetRequestBuilder()
-				.setMerchantName("布谷鸟信息科技（昆山）有限公司")
-				.setMerchantServicePhone("13776346982")
-				.setAccountNo("songqi@itcuckoo.com")
 				.setAppAuthToken(appAuthToken)
-				.setInterfaceInfoList(inferfaceInfoList);
-		alipayParkingService.parkingConfigSet(builder);
+				//app获取沙箱环境中用户账号的user_id。详见https://docs.open.alipay.com/289/105656/
+				.setBuyerId("2088102175673493")
+				.setOutTradeNo(outTradeNo).setTotalAmount("0.1")
+				.setSubject("测试交易创建接口")
+				.setExtendParams(new ExtendParams().setSysServiceProviderId(configs.getPid()));
+		AlipayF2FCreateResult result = alipayTradeService.tradeCreate(builder);
 	}
+
+
+
 }

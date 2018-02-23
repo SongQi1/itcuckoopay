@@ -43,7 +43,7 @@ public class AlipayApiService {
         AlipayOpenAuthTokenAppRequestBuilder builder = new AlipayOpenAuthTokenAppRequestBuilder()
                 .setCode(app_auth_code).setGrantType("authorization_code");
 
-        AlipayOpenAuthTokenAppResponse response = alipayAuthService.opentAuthTokenApp(builder);
+        AlipayOpenAuthTokenAppResponse response = alipayAuthService.openAuthTokenApp(builder);
 
         if(response.isSuccess()){
             AlipayOpenAuthToken token = new AlipayOpenAuthToken();
@@ -63,13 +63,14 @@ public class AlipayApiService {
     }
 
 
-
-
-
+    /**
+     * 更新商户的appAuthToken
+     * @param app_refresh_token
+     */
     public void refreshAppAuthToken(String app_refresh_token){
         AlipayOpenAuthTokenAppRequestBuilder builder = new AlipayOpenAuthTokenAppRequestBuilder()
                 .setGrantType("refresh_token").setRefreshToken(app_refresh_token);
-        AlipayOpenAuthTokenAppResponse response = alipayAuthService.opentAuthTokenApp(builder);
+        AlipayOpenAuthTokenAppResponse response = alipayAuthService.openAuthTokenApp(builder);
         if(response.isSuccess()){
             List<AlipayOpenAuthToken> alipayOpenAuthTokenList = alipayOpenAuthTokenMapper.selectList(new EntityWrapper<AlipayOpenAuthToken>().eq("appRefreshToken", app_refresh_token));
             if(alipayOpenAuthTokenList != null && alipayOpenAuthTokenList.size() > 0){

@@ -5,6 +5,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.AlipayRequest;
 import com.alipay.api.AlipayResponse;
 import com.alipay.api.internal.util.json.JSONWriter;
+import com.bocs.alipay.config.Constants;
 import com.bocs.alipay.model.builder.RequestBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,5 +51,11 @@ abstract class AbsAlipayService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // 交易异常，或发生系统错误
+    protected boolean tradeError(AlipayResponse response) {
+        return response == null ||
+                Constants.ERROR.equals(response.getCode());
     }
 }

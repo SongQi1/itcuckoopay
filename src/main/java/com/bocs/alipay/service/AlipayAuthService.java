@@ -4,7 +4,7 @@ import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
 import com.bocs.alipay.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
 
 /**
- * Description:<p> </p>
+ * Description:<p>第三方应用授权 </p>
  * Created by songqi on 2018/2/6.
  */
 public interface AlipayAuthService {
@@ -15,7 +15,7 @@ public interface AlipayAuthService {
      * @param builder
      * @return
      */
-    AlipayOpenAuthTokenAppResponse opentAuthTokenApp(AlipayOpenAuthTokenAppRequestBuilder builder);
+    AlipayOpenAuthTokenAppResponse openAuthTokenApp(AlipayOpenAuthTokenAppRequestBuilder builder);
 
 
 

@@ -1,10 +1,7 @@
 package com.bocs.alipay.service;
 
 import com.bocs.alipay.model.builder.*;
-import com.bocs.alipay.model.result.AlipayF2FPayResult;
-import com.bocs.alipay.model.result.AlipayF2FPrecreateResult;
-import com.bocs.alipay.model.result.AlipayF2FQueryResult;
-import com.bocs.alipay.model.result.AlipayF2FRefundResult;
+import com.bocs.alipay.model.result.*;
 
 /**
  * 支付宝当面付交易
@@ -47,5 +44,5 @@ public interface AlipayTradeService {
      * 当面付2.0统一下单接口
      * @param builder
      */
-    void tradeCreate(AlipayTradeCreateRequestBuilder builder);
+    AlipayF2FCreateResult tradeCreate(AlipayTradeCreateRequestBuilder builder);
 }

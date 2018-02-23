@@ -40,7 +40,7 @@ public class Application {
 
 
 
-	@Bean
+	/*@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 
 		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
@@ -68,5 +68,5 @@ public class Application {
 		connector.setSecure(false);
 		connector.setRedirectPort(8443);
 		return connector;
-	}
+	}*/
 }

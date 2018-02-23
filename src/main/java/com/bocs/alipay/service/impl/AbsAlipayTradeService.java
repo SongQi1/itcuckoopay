@@ -7,10 +7,7 @@ import com.alipay.api.response.*;
 import com.bocs.alipay.config.Constants;
 import com.bocs.alipay.model.TradeStatus;
 import com.bocs.alipay.model.builder.*;
-import com.bocs.alipay.model.result.AlipayF2FPayResult;
-import com.bocs.alipay.model.result.AlipayF2FPrecreateResult;
-import com.bocs.alipay.model.result.AlipayF2FQueryResult;
-import com.bocs.alipay.model.result.AlipayF2FRefundResult;
+import com.bocs.alipay.model.result.*;
 import com.bocs.alipay.service.AlipayTradeService;
 import com.bocs.alipay.utils.Utils;
 import com.bocs.core.util.PropertiesUtil;
@@ -114,7 +111,7 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
     }
 
     @Override
-    public void tradeCreate(AlipayTradeCreateRequestBuilder builder) {
+    public AlipayF2FCreateResult tradeCreate(AlipayTradeCreateRequestBuilder builder) {
         validateBuilder(builder);
 
 
@@ -128,8 +125,20 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
 
         AlipayTradeCreateResponse response = (AlipayTradeCreateResponse) getResponse(request);
 
+        AlipayF2FCreateResult result = new AlipayF2FCreateResult(response);
+        if (response != null && Constants.SUCCESS.equals(response.getCode())) {
+            // 预下单交易成功
+            result.setTradeStatus(TradeStatus.SUCCESS);
 
+        } else if (tradeError(response)) {
+            // 预下单发生异常，状态未知
+            result.setTradeStatus(TradeStatus.UNKNOWN);
 
+        } else {
+            // 其他情况表明该预下单明确失败
+            result.setTradeStatus(TradeStatus.FAILED);
+        }
+        return result;
     }
 
     // 根据查询结果queryResponse判断交易是否支付成功，如果支付成功则更新result并返回，如果不成功则调用撤销
@@ -282,9 +291,5 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
                 Constants.SUCCESS.equals(response.getCode());
     }
 
-    // 交易异常，或发生系统错误
-    protected boolean tradeError(AlipayResponse response) {
-        return response == null ||
-                Constants.ERROR.equals(response.getCode());
-    }
+
 }

@@ -41,6 +41,9 @@
 
 		<velocity.version>1.7</velocity.version>
 		<zxing.version>3.3.0</zxing.version>
+
+		<!-- surefire plugin方式跳过maven test， 等同$ mvn package -DskipTests -->
+		<skipTests>true</skipTests>
 	</properties>
 
 	<dependencies>

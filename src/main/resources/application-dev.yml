@@ -1,11 +1,11 @@
 server:
-  port: 8443
+  port: 80
   context-path: /cash
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-type: PKCS12
-    key-alias: tomcat
-    key-store-password: Aa123456!
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-type: PKCS12
+#    key-alias: tomcat
+#    key-store-password: Aa123456!
 spring:
   datasource:
     druid:

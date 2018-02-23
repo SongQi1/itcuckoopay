@@ -27,6 +27,9 @@ public class AlipayTradeCreateRequestBuilder extends RequestBuilder{
         if (StringUtils.isEmpty(bizContent.subject)) {
             throw new NullPointerException("subject should not be NULL!");
         }
+        if(StringUtils.isEmpty(bizContent.buyerId)){
+            throw new NullPointerException("buyer_id should not be NULL!");
+        }
         if(PartnerRole.ISV.getRole().equalsIgnoreCase(PropertiesUtil.getString("partnerRole"))
                 && (bizContent.extendParams == null || StringUtils.isEmpty(bizContent.extendParams.getSysServiceProviderId()))){
             throw new NullPointerException("sys_service_provider_id should not be NULL!");

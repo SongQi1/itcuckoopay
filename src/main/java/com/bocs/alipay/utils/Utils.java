@@ -1,7 +1,12 @@
 package com.bocs.alipay.utils;
 
 import org.apache.commons.lang.StringUtils;
+import sun.misc.BASE64Encoder;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,5 +55,28 @@ public class Utils {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
+     * @param file
+     * @return
+     */
+    public static String getImageBase64Str(File file){
+        InputStream in;
+        byte[] data = null;
+        //读取图片字节数组
+        try {
+            in = new FileInputStream(file);
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+        //返回Base64编码过的字节数组字符串
+        return encoder.encode(data);
     }
 }

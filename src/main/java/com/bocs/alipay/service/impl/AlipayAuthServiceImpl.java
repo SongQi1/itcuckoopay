@@ -34,7 +34,7 @@ public class AlipayAuthServiceImpl extends AbsAlipayService implements AlipayAut
 
 
     @Override
-    public AlipayOpenAuthTokenAppResponse opentAuthTokenApp(AlipayOpenAuthTokenAppRequestBuilder builder) {
+    public AlipayOpenAuthTokenAppResponse openAuthTokenApp(AlipayOpenAuthTokenAppRequestBuilder builder) {
         validateBuilder(builder);
 
         AlipayOpenAuthTokenAppRequest request = new AlipayOpenAuthTokenAppRequest();

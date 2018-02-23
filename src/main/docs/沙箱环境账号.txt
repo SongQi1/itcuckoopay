@@ -23,3 +23,6 @@ ssriyg1229@sandbox.com
 身份证(IDENTITY_CARD)
 证件号码
 513762198911154200
+
+沙箱环境授权页面：
+https://openauth.alipaydev.com/oauth2/appToAppAuth.htm?app_id=2016091100488696&redirect_uri=http%3A%2F%2Fwww.itcuckoo.com/cash/authRedirect
