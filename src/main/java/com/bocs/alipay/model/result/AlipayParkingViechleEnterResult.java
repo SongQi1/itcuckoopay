@@ -1,20 +1,20 @@
 package com.bocs.alipay.model.result;
 
-import com.alipay.api.response.AlipayEcoMycarParkingParkinglotinfoCreateResponse;
+import com.alipay.api.response.AlipayEcoMycarParkingEnterinfoSyncResponse;
 import com.bocs.alipay.model.TradeStatus;
 
 /**
- * 描述:<p> 录入停车场信息结果 </p>
+ * 描述:<p>上传车辆驶入信息到支付宝接口返回结果 </p>
  *
  * @Author: songqi
- * @Date: 2018/2/23 16:05
+ * @Date: 2018/2/24 13:41
  */
-public class AlipayParkinglotinfoCreateResult implements Result{
+public class AlipayParkingViechleEnterResult implements Result{
     private TradeStatus tradeStatus;
 
-    private AlipayEcoMycarParkingParkinglotinfoCreateResponse response;
+    private AlipayEcoMycarParkingEnterinfoSyncResponse response;
 
-    public AlipayParkinglotinfoCreateResult(AlipayEcoMycarParkingParkinglotinfoCreateResponse response){
+    public AlipayParkingViechleEnterResult(AlipayEcoMycarParkingEnterinfoSyncResponse response){
         this.response = response;
     }
 
@@ -27,11 +27,11 @@ public class AlipayParkinglotinfoCreateResult implements Result{
         this.tradeStatus = tradeStatus;
     }
 
-    public AlipayEcoMycarParkingParkinglotinfoCreateResponse getResponse() {
+    public AlipayEcoMycarParkingEnterinfoSyncResponse getResponse() {
         return response;
     }
 
-    public void setResponse(AlipayEcoMycarParkingParkinglotinfoCreateResponse response) {
+    public void setResponse(AlipayEcoMycarParkingEnterinfoSyncResponse response) {
         this.response = response;
     }
 

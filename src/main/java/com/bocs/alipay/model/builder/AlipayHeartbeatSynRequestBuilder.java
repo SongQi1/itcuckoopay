@@ -55,7 +55,7 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
     public String toString() {
         final StringBuilder sb = new StringBuilder("AlipayHeartbeatSynRequestBuilder{");
         sb.append("bizContent=").append(bizContent);
-        sb.append(", super=").append(super.toString());
+        sb.append(", commonParams=").append(super.toString());
         sb.append('}');
         return sb.toString();
     }
@@ -222,7 +222,7 @@ public class AlipayHeartbeatSynRequestBuilder extends RequestBuilder {
 
         @Override
         public String toString() {
-            return "BizContent{" +
+            return "{" +
                     "product=" + product +
                     ", type=" + type +
                     ", equipmentId='" + equipmentId + '\'' +

@@ -2,20 +2,47 @@ package com.bocs.alipay.model.builder;
 
 
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.regex.Pattern;
 
 /**
- * 描述:<p> </p>
+ * 描述:<p>停车场信息录入请求构造器 </p>
  *
  * @Author: songqi
  * @Date: 2018/2/23 16:09
  */
-public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBuilder{
+public class AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder extends RequestBuilder{
 
     private BizContent bizContent = new BizContent();
 
     @Override
     public boolean validate() {
-        return false;
+        if(StringUtils.isEmpty(bizContent.outParkingId)){
+            throw new NullPointerException("out_parking_id should not be NULL!");
+        }
+        if(StringUtils.isEmpty(bizContent.parkingAddress)){
+            throw new NullPointerException("parking_address should not be NULL!");
+        }
+        if(StringUtils.isEmpty(bizContent.parkinglotType)){
+            throw new NullPointerException("parking_lot_type should not be NULL!");
+        }
+        if(StringUtils.isEmpty(bizContent.parkingPoiid)){
+            throw new NullPointerException("parking_poiid should not be NULL!");
+        }
+        if(StringUtils.isEmpty(bizContent.parkingMobile)){
+            throw new NullPointerException("parking_mobile should not be NULL!");
+        }
+        if (!Pattern.matches("^\\d{11,}$", bizContent.parkingMobile)) {
+            throw new IllegalStateException("invalid parking_mobile!");
+        }
+        if(StringUtils.isEmpty(bizContent.payType)){
+            throw new NullPointerException("pay_type should not be NULL!");
+        }
+        if(StringUtils.isEmpty(bizContent.parkingName)){
+            throw new NullPointerException("parking_name should not be NULL!");
+        }
+        return true;
     }
 
     @Override
@@ -33,8 +60,8 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
     }
 
     @Override
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setAppAuthToken(String appAuthToken) {
-        return (AlipayEcoMycarParkinglotinfoCreateRequestBuilder) super.setAppAuthToken(appAuthToken);
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setAppAuthToken(String appAuthToken) {
+        return (AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder) super.setAppAuthToken(appAuthToken);
     }
 
 
@@ -42,7 +69,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.outParkingId;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setOutParkingId(String outParkingId) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setOutParkingId(String outParkingId) {
         bizContent.outParkingId = outParkingId;
         return this;
     }
@@ -51,7 +78,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.parkingAddress;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setParkingAddress(String parkingAddress) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setParkingAddress(String parkingAddress) {
         bizContent.parkingAddress = parkingAddress;
         return this;
     }
@@ -60,17 +87,17 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.parkinglotType;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setParkinglotType(String parkinglotType) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setParkinglotType(String parkinglotType) {
         bizContent.parkinglotType = parkinglotType;
         return this;
     }
 
-    public String getParkingPoiId() {
-        return bizContent.parkingPoiId;
+    public String getParkingPoiid() {
+        return bizContent.parkingPoiid;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setParkingPoiId(String parkingPoiId) {
-        bizContent.parkingPoiId = parkingPoiId;
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setParkingPoiid(String parkingPoiid) {
+        bizContent.parkingPoiid = parkingPoiid;
         return this;
     }
 
@@ -78,7 +105,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.parkingMobile;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setParkingMobile(String parkingMobile) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setParkingMobile(String parkingMobile) {
         bizContent.parkingMobile = parkingMobile;
         return this;
     }
@@ -87,7 +114,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.payType;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setPayType(String payType) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setPayType(String payType) {
         bizContent.payType = payType;
         return this;
     }
@@ -96,7 +123,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.shopingmallId;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setShopingmallId(String shopingmallId) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setShopingmallId(String shopingmallId) {
         bizContent.shopingmallId = shopingmallId;
         return this;
     }
@@ -105,7 +132,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.parkingFeeDescription;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setParkingFeeDescription(String parkingFeeDescription) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setParkingFeeDescription(String parkingFeeDescription) {
         bizContent.parkingFeeDescription = parkingFeeDescription;
         return this;
     }
@@ -114,7 +141,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.parkingName;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setParkingName(String parkingName) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setParkingName(String parkingName) {
         bizContent.parkingName = parkingName;
         return this;
     }
@@ -123,7 +150,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
         return bizContent.timeOut;
     }
 
-    public AlipayEcoMycarParkinglotinfoCreateRequestBuilder setTimeOut(String timeOut) {
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setTimeOut(String timeOut) {
         bizContent.timeOut = timeOut;
         return this;
     }
@@ -152,7 +179,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
          * 高德地图唯一标识
          */
         @SerializedName("parking_poiid")
-        private String parkingPoiId;
+        private String parkingPoiid;
 
         /**
          * 停车场客服电话
@@ -198,7 +225,7 @@ public class AlipayEcoMycarParkinglotinfoCreateRequestBuilder extends RequestBui
                     "outParkingId='" + outParkingId + '\'' +
                     ", parkingAddress='" + parkingAddress + '\'' +
                     ", parkinglotType='" + parkinglotType + '\'' +
-                    ", parkingPoiId='" + parkingPoiId + '\'' +
+                    ", parkingPoiid='" + parkingPoiid + '\'' +
                     ", parkingMobile='" + parkingMobile + '\'' +
                     ", payType='" + payType + '\'' +
                     ", shopingmallId='" + shopingmallId + '\'' +

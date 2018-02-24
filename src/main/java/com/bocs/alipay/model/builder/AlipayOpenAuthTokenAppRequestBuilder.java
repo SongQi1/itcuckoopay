@@ -77,7 +77,7 @@ public class AlipayOpenAuthTokenAppRequestBuilder extends RequestBuilder{
 
         @Override
         public String toString() {
-            return "BizContent{" +
+            return "{" +
                     "grantType='" + grantType + '\'' +
                     ", code='" + code + '\'' +
                     ", refreshToken='" + refreshToken + '\'' +
