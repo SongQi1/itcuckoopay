@@ -33,6 +33,29 @@ abstract class AbsAlipayService {
         }
     }
 
+
+    /**
+     * 调用AlipayClient的execute方法，进行远程调用
+     * @param request
+     * @param accessToken
+     * @param appAuthToken
+     * @return
+     */
+    protected AlipayResponse getResponse(AlipayRequest request, String accessToken, String appAuthToken) {
+        try {
+            log.info("支付宝请求报文：" + new JSONWriter().write(request));
+            AlipayResponse response = alipayClient.execute(request, accessToken, appAuthToken);
+            if (response != null) {
+                log.info("支付宝返回报文：" + new JSONWriter().write(response));
+            }
+            return response;
+
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * 调用AlipayClient的execute方法，进行远程调用
      * @param request

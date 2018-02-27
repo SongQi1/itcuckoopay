@@ -52,12 +52,12 @@ public class AlipayParkingService extends AbsAlipayService{
         validateBuilder(builder);
 
         AlipayEcoMycarParkingConfigSetRequest request = new AlipayEcoMycarParkingConfigSetRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+        //request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
 
         log.info("alipay.eco.mycar.parking.config.set request content:" + builder.toString());
 
-        AlipayEcoMycarParkingConfigSetResponse response = (AlipayEcoMycarParkingConfigSetResponse) getResponse(request);
+        AlipayEcoMycarParkingConfigSetResponse response = (AlipayEcoMycarParkingConfigSetResponse) getResponse(request,null, builder.getAppAuthToken());
         AlipayParkingConfigSetResult result = new AlipayParkingConfigSetResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
             //交易成功
@@ -83,11 +83,11 @@ public class AlipayParkingService extends AbsAlipayService{
     public AlipayParkingConfigQueryResult parkingConfigQuery(AlipayEcoMycarParkingConfigQueryRequestBuilder builder){
 
         AlipayEcoMycarParkingConfigQueryRequest request = new AlipayEcoMycarParkingConfigQueryRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("alipay.eco.mycar.parking.config.query request content:" + builder.toString());
 
-        AlipayEcoMycarParkingConfigQueryResponse response = (AlipayEcoMycarParkingConfigQueryResponse) getResponse(request);
+        AlipayEcoMycarParkingConfigQueryResponse response = (AlipayEcoMycarParkingConfigQueryResponse) getResponse(request, null, builder.getAppAuthToken());
         AlipayParkingConfigQueryResult result = new AlipayParkingConfigQueryResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
             //交易成功
@@ -112,11 +112,11 @@ public class AlipayParkingService extends AbsAlipayService{
      */
     public AlipayParkingParkinglotinfoCreateResult parkinglotCreate(AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder builder){
         AlipayEcoMycarParkingParkinglotinfoCreateRequest request = new AlipayEcoMycarParkingParkinglotinfoCreateRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("alipay.eco.mycar.parking.parkinglotinfo.create request content:" + builder.toString());
 
-        AlipayEcoMycarParkingParkinglotinfoCreateResponse response = (AlipayEcoMycarParkingParkinglotinfoCreateResponse) getResponse(request);
+        AlipayEcoMycarParkingParkinglotinfoCreateResponse response = (AlipayEcoMycarParkingParkinglotinfoCreateResponse) getResponse(request,null,builder.getAppAuthToken());
         AlipayParkingParkinglotinfoCreateResult result = new AlipayParkingParkinglotinfoCreateResult(response);
 
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
@@ -141,11 +141,11 @@ public class AlipayParkingService extends AbsAlipayService{
      */
     public AlipayParkingParkinglotinfoUpdateResult parkinglotUpdate(AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder builder){
         AlipayEcoMycarParkingParkinglotinfoUpdateRequest request = new AlipayEcoMycarParkingParkinglotinfoUpdateRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("alipay.eco.mycar.parking.parkinglotinfo.Update request content:" + builder.toString());
 
-        AlipayEcoMycarParkingParkinglotinfoUpdateResponse response = (AlipayEcoMycarParkingParkinglotinfoUpdateResponse) getResponse(request);
+        AlipayEcoMycarParkingParkinglotinfoUpdateResponse response = (AlipayEcoMycarParkingParkinglotinfoUpdateResponse) getResponse(request, null, builder.getAppAuthToken());
         AlipayParkingParkinglotinfoUpdateResult result = new AlipayParkingParkinglotinfoUpdateResult(response);
 
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
@@ -168,14 +168,14 @@ public class AlipayParkingService extends AbsAlipayService{
      * @param builder
      * @return
      */
-    public AlipayParkingViechleEnterResult viechleEnterSync(AlipayEcoMycarParkingEnterinfoSyncRequestBuilder builder){
+    public AlipayParkingVehicleEnterResult viechleEnterSync(AlipayEcoMycarParkingEnterinfoSyncRequestBuilder builder){
         AlipayEcoMycarParkingEnterinfoSyncRequest request = new AlipayEcoMycarParkingEnterinfoSyncRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//      request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("alipay.eco.mycar.parking.enterinfo.sync request content:" + builder.toString());
 
-        AlipayEcoMycarParkingEnterinfoSyncResponse response = (AlipayEcoMycarParkingEnterinfoSyncResponse) getResponse(request);
-        AlipayParkingViechleEnterResult result = new AlipayParkingViechleEnterResult(response);
+        AlipayEcoMycarParkingEnterinfoSyncResponse response = (AlipayEcoMycarParkingEnterinfoSyncResponse) getResponse(request, null, builder.getAppAuthToken());
+        AlipayParkingVehicleEnterResult result = new AlipayParkingVehicleEnterResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
             //交易成功
             result.setTradeStatus(TradeStatus.SUCCESS);

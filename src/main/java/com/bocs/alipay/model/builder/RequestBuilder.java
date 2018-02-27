@@ -6,7 +6,21 @@ import com.bocs.alipay.utils.GsonFactory;
  * Created by liuyangkly on 15/7/31.
  */
 public abstract class RequestBuilder {
+
+    /**
+     * 应用授权Token。开发者通过此appAuthToken代替商户发起当面付的收单请求
+     */
     private String appAuthToken;
+
+
+    /**
+     * 用户授权Token。
+     */
+    private String accessToken;
+
+    /**
+     *
+     */
     private String notifyUrl;
 
     /**
@@ -56,5 +70,12 @@ public abstract class RequestBuilder {
         return this;
     }
 
+    public String getAccessToken() {
+        return accessToken;
+    }
 
+    public RequestBuilder setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+        return this;
+    }
 }

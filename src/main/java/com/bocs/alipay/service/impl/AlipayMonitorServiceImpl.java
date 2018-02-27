@@ -36,10 +36,10 @@ public class AlipayMonitorServiceImpl extends AbsAlipayService implements Alipay
         validateBuilder(builder);
 
         MonitorHeartbeatSynRequest request = new MonitorHeartbeatSynRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("heartbeat.sync bizContent:" + request.getBizContent());
 
-        return (MonitorHeartbeatSynResponse) getResponse(request);
+        return (MonitorHeartbeatSynResponse) getResponse(request, null, builder.getAppAuthToken());
     }
 }
