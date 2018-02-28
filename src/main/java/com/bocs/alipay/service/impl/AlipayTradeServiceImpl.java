@@ -51,13 +51,13 @@ public class AlipayTradeServiceImpl extends AbsAlipayTradeService {
         String appAuthToken = builder.getAppAuthToken();
         // todo 等支付宝sdk升级公共参数后使用如下方法
         // request.setAppAuthToken(appAuthToken);
-        request.putOtherTextParam("app_auth_token", appAuthToken);
+//        request.putOtherTextParam("app_auth_token", appAuthToken);
         // 设置业务参数
         request.setBizContent(builder.toJsonString());
         log.info("trade.pay request content:" + builder.toString());
 
         // 首先调用支付api
-        AlipayTradePayResponse response = (AlipayTradePayResponse) getResponse(request);
+        AlipayTradePayResponse response = (AlipayTradePayResponse) getResponse(request, null, appAuthToken);
 
         AlipayF2FPayResult result = new AlipayF2FPayResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {

@@ -1,7 +1,6 @@
 package com.bocs.alipay.service.impl;
 
 
-import com.alipay.api.AlipayResponse;
 import com.alipay.api.request.*;
 import com.alipay.api.response.*;
 import com.bocs.alipay.config.Constants;
@@ -47,11 +46,11 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
         validateBuilder(builder);
 
         AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("trade.query bizContent:" + request.getBizContent());
 
-        return (AlipayTradeQueryResponse) getResponse(request);
+        return (AlipayTradeQueryResponse) getResponse(request, null, builder.getAppAuthToken());
     }
 
     @Override
@@ -60,11 +59,11 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
 
         AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
         request.setNotifyUrl(builder.getNotifyUrl());
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("trade.refund bizContent:" + request.getBizContent());
 
-        AlipayTradeRefundResponse response = (AlipayTradeRefundResponse) getResponse(request);
+        AlipayTradeRefundResponse response = (AlipayTradeRefundResponse) getResponse(request, null, builder.getAppAuthToken());
 
         AlipayF2FRefundResult result = new AlipayF2FRefundResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
@@ -88,11 +87,11 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
 
         AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();
         request.setNotifyUrl(builder.getNotifyUrl());
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("trade.precreate bizContent:" + request.getBizContent());
 
-        AlipayTradePrecreateResponse response = (AlipayTradePrecreateResponse) getResponse(request);
+        AlipayTradePrecreateResponse response = (AlipayTradePrecreateResponse) getResponse(request, null, builder.getAppAuthToken());
 
         AlipayF2FPrecreateResult result = new AlipayF2FPrecreateResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
@@ -117,13 +116,13 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
 
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
         request.setNotifyUrl(builder.getNotifyUrl());
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
 
         // 设置业务参数
         request.setBizContent(builder.toJsonString());
         log.info("trade.create request content:" + builder.toString());
 
-        AlipayTradeCreateResponse response = (AlipayTradeCreateResponse) getResponse(request);
+        AlipayTradeCreateResponse response = (AlipayTradeCreateResponse) getResponse(request, null, builder.getAppAuthToken());
 
         AlipayF2FCreateResult result = new AlipayF2FCreateResult(response);
         if (response != null && Constants.SUCCESS.equals(response.getCode())) {
@@ -170,11 +169,11 @@ abstract class AbsAlipayTradeService extends AbsAlipayService implements AlipayT
         validateBuilder(builder);
 
         AlipayTradeCancelRequest request = new AlipayTradeCancelRequest();
-        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
+//        request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
         log.info("trade.cancel bizContent:" + request.getBizContent());
 
-        return (AlipayTradeCancelResponse) getResponse(request);
+        return (AlipayTradeCancelResponse) getResponse(request,null, builder.getAppAuthToken());
     }
 
     // 轮询查询订单支付结果

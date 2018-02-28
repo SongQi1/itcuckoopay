@@ -1,23 +1,20 @@
 package com.bocs.alipay.model.result;
 
-import com.alipay.api.response.AlipayEcoMycarParkingEnterinfoSyncResponse;
+import com.alipay.api.response.AlipayEcoMycarParkingVehicleQueryResponse;
 import com.bocs.alipay.model.TradeStatus;
 
 /**
- * 描述:<p>上传车辆驶入信息到支付宝接口返回结果 </p>
- *
- * @Author: songqi
- * @Date: 2018/2/24 13:41
+ * Description:<p>车牌查询返回结果 </p>
+ * Created by songqi on 2018/2/27.
  */
-public class AlipayParkingViechleEnterResult implements Result{
+public class AlipayParkingVehicleQueryResult implements Result{
     private TradeStatus tradeStatus;
 
-    private AlipayEcoMycarParkingEnterinfoSyncResponse response;
+    private AlipayEcoMycarParkingVehicleQueryResponse response;
 
-    public AlipayParkingViechleEnterResult(AlipayEcoMycarParkingEnterinfoSyncResponse response){
+    public AlipayParkingVehicleQueryResult(AlipayEcoMycarParkingVehicleQueryResponse response){
         this.response = response;
     }
-
 
     public TradeStatus getTradeStatus() {
         return tradeStatus;
@@ -27,11 +24,11 @@ public class AlipayParkingViechleEnterResult implements Result{
         this.tradeStatus = tradeStatus;
     }
 
-    public AlipayEcoMycarParkingEnterinfoSyncResponse getResponse() {
+    public AlipayEcoMycarParkingVehicleQueryResponse getResponse() {
         return response;
     }
 
-    public void setResponse(AlipayEcoMycarParkingEnterinfoSyncResponse response) {
+    public void setResponse(AlipayEcoMycarParkingVehicleQueryResponse response) {
         this.response = response;
     }
 
