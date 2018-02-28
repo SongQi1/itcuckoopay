@@ -3,17 +3,13 @@ package com.bocs;
 import com.bocs.alipay.config.Configs;
 import com.bocs.alipay.model.ExtendParams;
 import com.bocs.alipay.model.GoodsDetail;
-import com.bocs.alipay.model.InterfaceInfo;
-import com.bocs.alipay.model.builder.AlipayEcoMycarParkingConfigSetRequestBuilder;
 import com.bocs.alipay.model.builder.AlipayTradeCreateRequestBuilder;
 import com.bocs.alipay.model.builder.AlipayTradePayRequestBuilder;
 import com.bocs.alipay.model.result.AlipayF2FCreateResult;
 import com.bocs.alipay.model.result.AlipayF2FPayResult;
 import com.bocs.alipay.service.AlipayTradeService;
-import com.bocs.alipay.service.impl.AlipayParkingService;
 import com.bocs.alipay.utils.Utils;
 import com.bocs.sys.service.AlipayApiScheduleService;
-import com.bocs.sys.service.AlipayApiService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
@@ -37,8 +33,7 @@ public class AlipayTradeTests {
 	@Autowired
 	private Configs configs;
 
-	@Autowired
-	private AlipayApiService alipayApiService;
+
 
 
 	@Autowired
@@ -138,13 +133,7 @@ public class AlipayTradeTests {
 		}
 	}
 
-	@Test
-	public void testRefreshAuthToken(){
 
-		String refreshToken = "201802BBb399ec8b816c4e17ac073363ef401X03";
-
-		alipayApiService.refreshAppAuthToken(refreshToken);
-	}
 
 
 	@Test

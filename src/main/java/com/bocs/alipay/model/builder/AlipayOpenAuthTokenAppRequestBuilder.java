@@ -29,6 +29,15 @@ public class AlipayOpenAuthTokenAppRequestBuilder extends RequestBuilder{
     }
 
     @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AlipayOpenAuthTokenAppRequestBuilder{");
+        sb.append("bizContent=").append(bizContent);
+        sb.append(", commonParams=").append(super.toString());
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
     public BizContent getBizContent() {
         return bizContent;
     }

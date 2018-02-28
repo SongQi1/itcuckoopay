@@ -1,9 +1,9 @@
 package com.bocs.alipay.service;
 
 import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
-import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.bocs.alipay.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
 import com.bocs.alipay.model.builder.AlipaySystemOauthTokenRequestBuilder;
+import com.bocs.alipay.model.result.AlipaySystemOauthTokenRequestResult;
 
 /**
  * Description:<p>授权 </p>
@@ -28,6 +28,6 @@ public interface AlipayAuthService {
      * @param builder
      * @return
      */
-    AlipaySystemOauthTokenResponse systemOauthToken(AlipaySystemOauthTokenRequestBuilder builder);
+    AlipaySystemOauthTokenRequestResult systemOauthToken(AlipaySystemOauthTokenRequestBuilder builder);
 
 }

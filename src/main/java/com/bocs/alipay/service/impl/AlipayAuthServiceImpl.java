@@ -2,10 +2,14 @@ package com.bocs.alipay.service.impl;
 
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayOpenAuthTokenAppRequest;
+import com.alipay.api.request.AlipaySystemOauthTokenRequest;
 import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+import com.bocs.alipay.config.Constants;
+import com.bocs.alipay.model.TradeStatus;
 import com.bocs.alipay.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
 import com.bocs.alipay.model.builder.AlipaySystemOauthTokenRequestBuilder;
+import com.bocs.alipay.model.result.AlipaySystemOauthTokenRequestResult;
 import com.bocs.alipay.service.AlipayAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +51,28 @@ public class AlipayAuthServiceImpl extends AbsAlipayService implements AlipayAut
     }
 
     @Override
-    public AlipaySystemOauthTokenResponse systemOauthToken(AlipaySystemOauthTokenRequestBuilder builder) {
-        return null;
+    public AlipaySystemOauthTokenRequestResult systemOauthToken(AlipaySystemOauthTokenRequestBuilder builder) {
+        validateBuilder(builder);
+        AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
+        request.setGrantType(builder.getGrantType());
+        request.setCode(builder.getCode());
+        request.setRefreshToken(builder.getRefreshToken());
+        AlipaySystemOauthTokenResponse response = (AlipaySystemOauthTokenResponse) getResponse(request, null, builder.getAppAuthToken());
+
+        AlipaySystemOauthTokenRequestResult result = new AlipaySystemOauthTokenRequestResult(response);
+        if (response != null && Constants.SUCCESS.equals(response.getCode())) {
+            //交易成功
+            result.setTradeStatus(TradeStatus.SUCCESS);
+
+        } else if (tradeError(response)) {
+            // 系统发生异常，状态未知
+            result.setTradeStatus(TradeStatus.UNKNOWN);
+
+        } else {
+            // 其他情况表明该交易明确失败
+            result.setTradeStatus(TradeStatus.FAILED);
+        }
+        return result;
     }
 
 }
