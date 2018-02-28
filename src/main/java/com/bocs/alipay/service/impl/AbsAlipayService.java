@@ -76,7 +76,11 @@ abstract class AbsAlipayService {
         }
     }
 
-    // 交易异常，或发生系统错误
+    /**
+     * 交易异常，或发生系统错误
+     * @param response
+     * @return
+     */
     protected boolean tradeError(AlipayResponse response) {
         return response == null ||
                 Constants.ERROR.equals(response.getCode());
