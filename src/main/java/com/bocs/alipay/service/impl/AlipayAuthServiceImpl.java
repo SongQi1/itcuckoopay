@@ -3,7 +3,9 @@ package com.bocs.alipay.service.impl;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayOpenAuthTokenAppRequest;
 import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
+import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.bocs.alipay.model.builder.AlipayOpenAuthTokenAppRequestBuilder;
+import com.bocs.alipay.model.builder.AlipaySystemOauthTokenRequestBuilder;
 import com.bocs.alipay.service.AlipayAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,11 @@ public class AlipayAuthServiceImpl extends AbsAlipayService implements AlipayAut
         log.info("alipay.open.auth.token.app bizContent:" + request.getBizContent());
 
         return (AlipayOpenAuthTokenAppResponse) getResponse(request);
+    }
+
+    @Override
+    public AlipaySystemOauthTokenResponse systemOauthToken(AlipaySystemOauthTokenRequestBuilder builder) {
+        return null;
     }
 
 }
