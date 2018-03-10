@@ -24,8 +24,8 @@ public class AlipayApiController {
      * 正式环境拼接规则为：https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=APPID&redirect_uri=REDIRECT_URI
      * 沙箱环境拼接规则为：https://openauth.alipaydev.com/oauth2/appToAppAuth.htm?app_id=APPID&redirect_uri=REDIRECT_URI
      * 其中REDIRECT_URI是经过URLENCODE转义的url链接，url必须以http或者https开头），转成二维码。
-     * 商户用支付宝扫描该二维码，跳转到支付宝的第三方应用授权页面。商户同意授权后，支付宝再跳转到redirect_uri
-     * 指定的页面，也就是此页面，同时传递app_auth_code和app_id到此页面。
+     * 商户用支付宝扫描该二维码，跳转到支付宝的第三方应用授权页面。商户同意授权后，支付宝再跳转到redirect_uri指定的页面，
+     * 也就是此页面，同时传递app_auth_code和app_id到此页面。
      * 应用系统用商户的app_auth_code换取app_auth_token，使用app_auth_token可以帮助商户完成相应的业务逻辑，例如代替商户发起当面付的收单请求
      * @param app_auth_code
      * @param app_id
@@ -39,6 +39,13 @@ public class AlipayApiController {
 
     /**
      * 用户使用支付宝登录回调页面。
+     * 用户访问应用系统的页面，并请求使用支付宝登录，应用系统将用户的浏览器跳服务授权页面(一个特定的url，拼接规则如下：
+     * 正式环境拼接规则为：https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=APPID&scope=SCOPE&redirect_uri=ENCODED_URL
+     * 沙箱环境拼接规则为：https://openauth.alipaydev.com/oauth2/publicAppAuthorize.htm?app_id=APPID&scope=SCOPE&redirect_uri=ENCODED_URL
+     * 其中REDIRECT_URI是经过URLENCODE转义的url链接，url必须以http或者https开头)，用户确定登录后，支付宝再跳转到redirect_uri指定的页面，也就是此页面，
+     * 同时在请求中加入参数，包括auth_code、app_id、scope等。
+     * 应用系统用auth_code换取用户的access_token(auth_token)和user_id，使用access_token完成其他业务处理
+     *
      * @param app_id 开发者应用的app_id；相同支付宝账号下，不同的app_id获取的token切忌混用。
      * @param scope 成功授权的接口权限值，目前只支持auth_user（获取用户信息、网站支付宝登录）、auth_base（用户信息授权）、auth_ecard（商户会员卡）、auth_invoice_info（支付宝闪电开票）、auth_puc_charge（生活缴费）五个值;
      *              多个scope时用“,”分隔，如scope为“auth_user,auth_ecard”时，此时获取到的access_token，既可以用来获取用户信息，又可以给用户发送会员卡
@@ -49,6 +56,8 @@ public class AlipayApiController {
      */
     @RequestMapping(value = "/userAuthRedirect")
     public String userAuthRedirect(String app_id, String scope, String error_scope, String state, String auth_code){
+
+
         return "success";
     }
 

@@ -4,12 +4,10 @@ import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 描述:<p>同步车辆驶入停车场信息到支付宝接口请求 </p>
- *
- * @Author: songqi
- * @Date: 2018/2/24 14:16
+ * Description:<p>同步车辆离开停车场信息到支付宝接口请求 </p>
+ * Created by songqi on 2018/3/10.
  */
-public class AlipayEcoMycarParkingEnterinfoSyncRequestBuilder extends RequestBuilder{
+public class AlipayEcoMycarParkingExitinfoSyncRequestBuilder extends RequestBuilder{
 
     private BizContent bizContent = new BizContent();
 
@@ -21,19 +19,7 @@ public class AlipayEcoMycarParkingEnterinfoSyncRequestBuilder extends RequestBui
         if(StringUtils.isEmpty(bizContent.carNumber)){
             throw new NullPointerException("car_number should not be NULL!");
         }
-        if(StringUtils.isEmpty(bizContent.inTime)){
-            throw new NullPointerException("in_time should not be NULL!");
-        }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("AlipayEcoMycarParkingEnterinfoSyncRequestBuilder{");
-        sb.append(bizContent);
-        sb.append(", commonParams=").append(super.toString());
-        sb.append('}');
-        return sb.toString();
     }
 
     @Override
@@ -42,16 +28,24 @@ public class AlipayEcoMycarParkingEnterinfoSyncRequestBuilder extends RequestBui
     }
 
     @Override
-    public AlipayEcoMycarParkingEnterinfoSyncRequestBuilder setAppAuthToken(String appAuthToken) {
-        return (AlipayEcoMycarParkingEnterinfoSyncRequestBuilder) super.setAppAuthToken(appAuthToken);
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AlipayEcoMycarParkingExitinfoSyncRequestBuilder{");
+        sb.append(bizContent);
+        sb.append(", commonParams=").append(super.toString());
+        sb.append('}');
+        return sb.toString();
     }
 
+    @Override
+    public AlipayEcoMycarParkingExitinfoSyncRequestBuilder setAppAuthToken(String appAuthToken) {
+        return (AlipayEcoMycarParkingExitinfoSyncRequestBuilder) super.setAppAuthToken(appAuthToken);
+    }
 
     public String getParkingId() {
         return bizContent.parkingId;
     }
 
-    public AlipayEcoMycarParkingEnterinfoSyncRequestBuilder setParkingId(String parkingId) {
+    public AlipayEcoMycarParkingExitinfoSyncRequestBuilder setParkingId(String parkingId) {
         bizContent.parkingId = parkingId;
         return this;
     }
@@ -60,19 +54,20 @@ public class AlipayEcoMycarParkingEnterinfoSyncRequestBuilder extends RequestBui
         return bizContent.carNumber;
     }
 
-    public AlipayEcoMycarParkingEnterinfoSyncRequestBuilder setCarNumber(String carNumber) {
+    public AlipayEcoMycarParkingExitinfoSyncRequestBuilder setCarNumber(String carNumber) {
         bizContent.carNumber = carNumber;
         return this;
     }
 
-    public String getInTime() {
-        return bizContent.inTime;
+    public String getOutTime() {
+        return bizContent.outTime;
     }
 
-    public AlipayEcoMycarParkingEnterinfoSyncRequestBuilder setInTime(String inTime) {
-        bizContent.inTime = inTime;
+    public AlipayEcoMycarParkingExitinfoSyncRequestBuilder setOutTime(String outTime) {
+        bizContent.outTime = outTime;
         return this;
     }
+
 
 
     public static class BizContent {
@@ -89,11 +84,13 @@ public class AlipayEcoMycarParkingEnterinfoSyncRequestBuilder extends RequestBui
         @SerializedName("car_number")
         private String carNumber;
 
+
         /**
-         * 车辆入场的时间，格式"YYYY-MM-DD HH:mm:ss"，24小时制
+         * 车辆离场时间，格式"YYYYMM-DD HH:mm:ss"，24小时制，
+         * 请保证车辆的出场时间比入场时间要晚
          */
-        @SerializedName("in_time")
-        private String inTime;
+        @SerializedName("out_time")
+        private String outTime;
 
 
         @Override
@@ -101,8 +98,10 @@ public class AlipayEcoMycarParkingEnterinfoSyncRequestBuilder extends RequestBui
             return "{" +
                     "parkingId='" + parkingId + '\'' +
                     ", carNumber='" + carNumber + '\'' +
-                    ", inTime='" + inTime + '\'' +
+                    ", outTime='" + outTime + '\'' +
                     '}';
         }
+
+
     }
 }

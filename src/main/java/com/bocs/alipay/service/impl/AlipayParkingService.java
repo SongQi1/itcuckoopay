@@ -5,10 +5,7 @@ import com.alipay.api.request.*;
 import com.alipay.api.response.*;
 import com.bocs.alipay.config.Constants;
 import com.bocs.alipay.model.TradeStatus;
-import com.bocs.alipay.model.builder.AlipayEcoMycarParkingConfigQueryRequestBuilder;
-import com.bocs.alipay.model.builder.AlipayEcoMycarParkingConfigSetRequestBuilder;
-import com.bocs.alipay.model.builder.AlipayEcoMycarParkingEnterinfoSyncRequestBuilder;
-import com.bocs.alipay.model.builder.AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder;
+import com.bocs.alipay.model.builder.*;
 import com.bocs.alipay.model.result.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -168,7 +165,7 @@ public class AlipayParkingService extends AbsAlipayService{
      * @param builder
      * @return
      */
-    public AlipayParkingVehicleEnterResult viechleEnterSync(AlipayEcoMycarParkingEnterinfoSyncRequestBuilder builder){
+    public AlipayParkingVehicleEnterResult vechicleEnterSync(AlipayEcoMycarParkingEnterinfoSyncRequestBuilder builder){
         AlipayEcoMycarParkingEnterinfoSyncRequest request = new AlipayEcoMycarParkingEnterinfoSyncRequest();
 //      request.putOtherTextParam("app_auth_token", builder.getAppAuthToken());
         request.setBizContent(builder.toJsonString());
@@ -191,5 +188,87 @@ public class AlipayParkingService extends AbsAlipayService{
         return result;
     }
 
+    /**
+     * 上传车辆驶出信息，上传信息通过该接口提交到支付宝，支付宝返回对应的信息
+     * @param builder
+     * @return
+     */
+    public AlipayParkingVehicleExitResult vehicleExitSync(AlipayEcoMycarParkingExitinfoSyncRequestBuilder builder){
+        AlipayEcoMycarParkingExitinfoSyncRequest request = new AlipayEcoMycarParkingExitinfoSyncRequest();
+        request.setBizContent(builder.toJsonString());
+        log.info("alipay.eco.mycar.parking.exitinfo.sync request content:" + builder.toString());
+
+        AlipayEcoMycarParkingExitinfoSyncResponse response = (AlipayEcoMycarParkingExitinfoSyncResponse) getResponse(request, null, builder.getAppAuthToken());
+        AlipayParkingVehicleExitResult result = new AlipayParkingVehicleExitResult(response);
+        if (response != null && Constants.SUCCESS.equals(response.getCode())) {
+            //交易成功
+            result.setTradeStatus(TradeStatus.SUCCESS);
+
+        } else if (tradeError(response)) {
+            // 系统发生异常，状态未知
+            result.setTradeStatus(TradeStatus.UNKNOWN);
+
+        } else {
+            // 其他情况表明该交易明确失败
+            result.setTradeStatus(TradeStatus.FAILED);
+        }
+        return result;
+    }
+
+    /**
+     * 根据支付宝返回的carId查询车牌信息
+     * 注意：需要用户信息授权
+     * @param builder
+     * @return
+     */
+    public AlipayParkingVehicleQueryResult vehicleQuery(AlipayEcoMycarParkingVehicleQueryRequestBuilder builder){
+
+        AlipayEcoMycarParkingVehicleQueryRequest request = new AlipayEcoMycarParkingVehicleQueryRequest();
+        request.setBizContent(builder.toJsonString());
+        log.info("alipay.eco.mycar.parking.vehicle.query request content:" + builder.toString());
+
+        AlipayEcoMycarParkingVehicleQueryResponse response = (AlipayEcoMycarParkingVehicleQueryResponse) getResponse(request, builder.getAccessToken(), builder.getAppAuthToken());
+        AlipayParkingVehicleQueryResult result = new AlipayParkingVehicleQueryResult(response);
+        if (response != null && Constants.SUCCESS.equals(response.getCode())) {
+            //交易成功
+            result.setTradeStatus(TradeStatus.SUCCESS);
+
+        } else if (tradeError(response)) {
+            // 系统发生异常，状态未知
+            result.setTradeStatus(TradeStatus.UNKNOWN);
+
+        } else {
+            // 其他情况表明该交易明确失败
+            result.setTradeStatus(TradeStatus.FAILED);
+        }
+        return result;
+    }
+
+    /**
+     * ISV将订单信息回传给支付宝停车平台
+     * @param builder
+     * @return
+     */
+    public AlipayParkingOrderSyncResult parkingOrderSync(AlipayEcoMycarParkingOrderSyncRequestBuilder builder){
+        AlipayEcoMycarParkingOrderSyncRequest request = new AlipayEcoMycarParkingOrderSyncRequest();
+        request.setBizContent(builder.toJsonString());
+        log.info("alipay.eco.mycar.parking.order.sync request content:" + builder.toString());
+
+        AlipayEcoMycarParkingOrderSyncResponse response = (AlipayEcoMycarParkingOrderSyncResponse) getResponse(request, null, builder.getAppAuthToken());
+        AlipayParkingOrderSyncResult result = new AlipayParkingOrderSyncResult(response);
+        if (response != null && Constants.SUCCESS.equals(response.getCode())) {
+            //交易成功
+            result.setTradeStatus(TradeStatus.SUCCESS);
+
+        } else if (tradeError(response)) {
+            // 系统发生异常，状态未知
+            result.setTradeStatus(TradeStatus.UNKNOWN);
+
+        } else {
+            // 其他情况表明该交易明确失败
+            result.setTradeStatus(TradeStatus.FAILED);
+        }
+        return result;
+    }
 
 }

@@ -1,7 +1,7 @@
 package com.bocs;
 
-import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.bocs.alipay.model.builder.AlipaySystemOauthTokenRequestBuilder;
+import com.bocs.alipay.model.result.AlipaySystemOauthTokenRequestResult;
 import com.bocs.alipay.service.AlipayAuthService;
 import com.bocs.sys.service.AlipayApiService;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class AlipayAuthTest {
         builder.setGrantType("authorization_code");
         builder.setCode("");
 
-        AlipaySystemOauthTokenResponse response = alipayAuthService.systemOauthToken(builder);
+        AlipaySystemOauthTokenRequestResult response = alipayAuthService.systemOauthToken(builder);
     }
 
 }

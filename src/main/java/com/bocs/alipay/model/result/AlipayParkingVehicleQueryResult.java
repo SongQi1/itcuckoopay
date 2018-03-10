@@ -4,7 +4,7 @@ import com.alipay.api.response.AlipayEcoMycarParkingVehicleQueryResponse;
 import com.bocs.alipay.model.TradeStatus;
 
 /**
- * Description:<p>车牌查询返回结果 </p>
+ * Description:<p>根据车辆ID查询车牌返回结果 </p>
  * Created by songqi on 2018/2/27.
  */
 public class AlipayParkingVehicleQueryResult implements Result{
