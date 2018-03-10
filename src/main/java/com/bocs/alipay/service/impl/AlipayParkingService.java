@@ -271,4 +271,33 @@ public class AlipayParkingService extends AbsAlipayService{
         return result;
     }
 
+    /**
+     * ISV更新订单状态至支付宝停车平台
+     * 在用户对停车订单有疑议而产生申诉，退款完成的场景下，ISV订单状态发生改变，为确保订单状态的一致性，
+     * ISV需要修改交易状态为支付成功的订单，通过接口alipay.eco.mycar.parking.order.update，将订单的状态变化信息同步到停车平台。
+     * @param builder
+     * @return
+     */
+    public AlipayParkingOrderUpdateResult parkingOrderUpdate(AlipayEcoMycarParkingOrderUpdateRequestBuilder builder){
+        AlipayEcoMycarParkingOrderUpdateRequest request = new AlipayEcoMycarParkingOrderUpdateRequest();
+        request.setBizContent(builder.toJsonString());
+        log.info("alipay.eco.mycar.parking.order.update request content:" + builder.toString());
+
+        AlipayEcoMycarParkingOrderUpdateResponse response = (AlipayEcoMycarParkingOrderUpdateResponse) getResponse(request, null, builder.getAppAuthToken());
+        AlipayParkingOrderUpdateResult result = new AlipayParkingOrderUpdateResult(response);
+        if (response != null && Constants.SUCCESS.equals(response.getCode())) {
+            //交易成功
+            result.setTradeStatus(TradeStatus.SUCCESS);
+
+        } else if (tradeError(response)) {
+            // 系统发生异常，状态未知
+            result.setTradeStatus(TradeStatus.UNKNOWN);
+
+        } else {
+            // 其他情况表明该交易明确失败
+            result.setTradeStatus(TradeStatus.FAILED);
+        }
+        return result;
+    }
+
 }
