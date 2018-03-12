@@ -67,7 +67,7 @@
 	</select>
 
 	<select id="getByAccount" resultType="sysUser">
-		select * from sys_user where phone=#{account} or userName=#{account}
+		select * from sys_user where phone=#{account} or userName=#{account} or email=#{account}
 	</select>
 
 	<select id="getByAccountByIdCard" resultType="sysUser">

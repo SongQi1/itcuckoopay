@@ -1,4 +1,4 @@
-package com.bocs.core.shiro;
+package com.bocs.sys.shiro;
 
 import com.bocs.core.util.WebUtil;
 import com.bocs.sys.mapper.SysUserMapper;

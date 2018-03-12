@@ -210,10 +210,6 @@ public class UserController extends AbstractController<SysUser> {
     public ModelAndView editUserPage(@PathVariable("id") Long id) {
         Assert.notNull(id, "ID");
         SysUser user = sysUserService.queryById(id);
-        if(user.getManagerId() != null && user.getManagerId() > 0){
-            SysUser manager = sysUserService.queryById(user.getManagerId());
-            user.setManagerNamePinyin(manager.getNamePinyin());
-        }
         ModelAndView modelAndView = new ModelAndView("/management/user_form");
         modelAndView.addObject("user", user);
         return modelAndView;

@@ -27,13 +27,12 @@ CREATE TABLE `sys_user` (
   `namePinyin` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮件地址',
   `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '住址',
+  `qq` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'QQ',
   `weixin` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信',
   `birthDate` datetime DEFAULT NULL COMMENT '出生日期',
   `emergencyContact`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '紧急联系人',
   `emergencyPhone` varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '紧急联系人手机号',
-  `employDate` datetime DEFAULT NULL COMMENT '雇用日期',
-  `titleId` bigint(20) DEFAULT NULL COMMENT '职务ID',
-  `managerId` bigint(20) DEFAULT NULL COMMENT '上级主管ID',
+
 
   PRIMARY KEY (`id`),
   UNIQUE KEY `sys_user_phone_uindex` (`phone`),
@@ -56,14 +55,7 @@ COMMENT='会话管理';
 
 
 
-CREATE TABLE `sys_job_title` (
-  `id` bigint(20) NOT NULL,
-  `name` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-  `parentTitleId` bigint(20) DEFAULT NULL,
 
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-  COMMENT='职务';
 
 CREATE TABLE `sys_menu` (
 `id`  bigint(20) NOT NULL COMMENT '菜单编号' ,
@@ -135,12 +127,11 @@ UNIQUE INDEX `user_id_role_id` (`userId`, `roleId`) USING BTREE
 COMMENT='用户授权表';
 
 
-INSERT INTO `cash`.`sys_user` (`id`, `phone`, `password`, `userName`, `userType`, `sex`, `idCard`, `namePinyin`, `email`, `address`, `weixin`, `birthDate`, `emergencyContact`, `emergencyPhone`, `employDate`, `titleId`, `enable`, `remark`) VALUES ('1', '13776346982', 'OyUHgt21gTP2/5uFgbKZtq==', 'songqi', '1', '1', '421126198406013851', '宋祁', '289330245@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cash`.`sys_user` (`id`, `phone`, `password`, `userName`, `userType`, `sex`, `idCard`, `namePinyin`, `email`, `address`, `weixin`, `birthDate`, `emergencyContact`, `emergencyPhone`, `employDate`, `titleId`, `enable`, `remark`) VALUES ('2', '13888888888', 'OyUHgt21gTP2/5uFgbKZtq==', 'admin', '2', '1', NULL, '管理员', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+INSERT INTO `cash`.`sys_role` (`id`, `roleName`, `roleType`, `remark`) VALUES ('1', '业务员', '1', '业务角色');
+INSERT INTO `cash`.`sys_role` (`id`, `roleName`, `roleType`, `remark`) VALUES ('2', '商户管理员', '2', '管理角色');
+INSERT INTO `cash`.`sys_role` (`id`, `roleName`, `roleType`, `remark`) VALUES ('3', '系统管理员', '3', '系统内置角色');
 
 
+INSERT INTO `cash`.`sys_user` (`id`, `phone`, `password`, `userName`, `userType`, `sex`, `idCard`, `namePinyin`, `email`, `address`, `qq`, `weixin`, `birthDate`, `emergencyContact`, `emergencyPhone`) VALUES ('1', '13776346982', 'OyUHgt21gTP2/5uFgbKZtq==', 'admin', '3', NULL, NULL, NULL, 'songqi@itcuckoo.com', NULL, NULL, NULL, NULL, NULL, NULL);
 
-INSERT INTO `cash`.`sys_job_title` (`id`, `name`, `parentTitleId`, `enable`, `remark`, `createBy`, `createTime`, `updateBy`, `updateTime`) VALUES ('1', '总经理', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cash`.`sys_job_title` (`id`, `name`, `parentTitleId`, `enable`, `remark`, `createBy`, `createTime`, `updateBy`, `updateTime`) VALUES ('2', '总监', '1', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cash`.`sys_job_title` (`id`, `name`, `parentTitleId`, `enable`, `remark`, `createBy`, `createTime`, `updateBy`, `updateTime`) VALUES ('3', '业务经理', '2', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cash`.`sys_job_title` (`id`, `name`, `parentTitleId`, `enable`, `remark`, `createBy`, `createTime`, `updateBy`, `updateTime`) VALUES ('4', '业务员', '3', NULL, NULL, NULL, NULL, NULL, NULL);

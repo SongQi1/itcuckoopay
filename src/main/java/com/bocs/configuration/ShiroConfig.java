@@ -1,6 +1,6 @@
 package com.bocs.configuration;
 
-import com.bocs.core.shiro.MyRealm;
+import com.bocs.sys.shiro.MyRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;

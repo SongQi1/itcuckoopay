@@ -3,7 +3,6 @@ package com.bocs.sys.model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.bocs.core.base.BaseModel;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -17,16 +16,24 @@ import java.util.Date;
 public class SysUser extends BaseModel{
 
     /**
+     * 用户名
+     */
+    private String  userName;
+    /**
      * 手机号
      */
     private String phone;
 
+    /**
+     * 电子邮件
+     */
+    private String email;
+
     private String password;
 
-    /**
-     * 用户名、登录名
-     */
-    private String  userName;
+
+
+
 
     /**
      * 用户类型(1普通用户2管理用户3系统用户)
@@ -48,21 +55,26 @@ public class SysUser extends BaseModel{
      */
     private String namePinyin;
 
-    private String email;
-
     /**
      * 家庭住址
      */
     private String address;
 
+    /**
+     * 微信
+     */
     private String weixin;
+
+    /**
+     * QQ号码
+     */
+    private String qq;
 
     /**
      * 出生日期
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
-
 
     /**
      * 紧急联系人
@@ -75,26 +87,7 @@ public class SysUser extends BaseModel{
     private String emergencyPhone;
 
     /**
-     * 入职日期
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
-    private Date employDate;
-
-
-    /**
-     * 职务Id 1-总经理,2-总监,3-业务经理,4-业务员
-     */
-    private Long titleId;
-
-    /**
-     * 上级主管
-     */
-    private Long managerId;
-
-
-    /**
-     * 登录名。可以是手机号或用户名
+     * 登录名。可以是用户名、手机号、email
      */
     @TableField(exist = false)
     private String account;
@@ -117,12 +110,13 @@ public class SysUser extends BaseModel{
     @TableField(exist = false)
     private String confirmNewPassword;
 
-    /**
-     * 主管姓名
-     */
-    @TableField(exist = false)
-    private String managerNamePinyin;
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getPhone() {
         return phone;
@@ -132,20 +126,20 @@ public class SysUser extends BaseModel{
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getUserType() {
@@ -180,14 +174,6 @@ public class SysUser extends BaseModel{
         this.namePinyin = namePinyin;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -202,6 +188,14 @@ public class SysUser extends BaseModel{
 
     public void setWeixin(String weixin) {
         this.weixin = weixin;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
     }
 
     public Date getBirthDate() {
@@ -228,30 +222,6 @@ public class SysUser extends BaseModel{
         this.emergencyPhone = emergencyPhone;
     }
 
-    public Date getEmployDate() {
-        return employDate;
-    }
-
-    public void setEmployDate(Date employDate) {
-        this.employDate = employDate;
-    }
-
-    public Long getTitleId() {
-        return titleId;
-    }
-
-    public void setTitleId(Long titleId) {
-        this.titleId = titleId;
-    }
-
-    public Long getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(Long managerId) {
-        this.managerId = managerId;
-    }
-
     public String getAccount() {
         return account;
     }
@@ -266,14 +236,6 @@ public class SysUser extends BaseModel{
 
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
-    }
-
-    public String getManagerNamePinyin() {
-        return managerNamePinyin;
-    }
-
-    public void setManagerNamePinyin(String managerNamePinyin) {
-        this.managerNamePinyin = managerNamePinyin;
     }
 
     public String getNewPassword() {
