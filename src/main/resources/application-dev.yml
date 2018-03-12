@@ -78,7 +78,7 @@ spring:
   thymeleaf:
     prefix: classpath:/templates
     cache: false
-    cache-period: 0
+    mode: LEGACYHTML5
   template:
     cache: false
 
