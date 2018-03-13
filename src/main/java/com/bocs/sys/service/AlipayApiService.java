@@ -48,6 +48,7 @@ public class AlipayApiService {
         if(response.isSuccess()){
             AlipayOpenAuthToken token = new AlipayOpenAuthToken();
 
+            token.setAppId(app_id);
             token.setAppAuthToken(response.getAppAuthToken());
             token.setAppRefreshToken(response.getAppRefreshToken());
             token.setUserId(response.getUserId());

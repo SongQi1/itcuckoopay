@@ -14,6 +14,8 @@ import java.util.Date;
 @TableName("alipay_open_auth_token")
 public class AlipayOpenAuthToken extends BaseModel{
 
+    private String appId;
+
     /**
      * 商户授权令牌:通过该令牌来帮助商户发起请求，完成业务
      */
@@ -53,6 +55,14 @@ public class AlipayOpenAuthToken extends BaseModel{
      * 刷新令牌时使用。刷新令牌后，我们会保证老的app_auth_token从刷新开始10分钟内可继续使用，请及时替换为最新token
      */
     private String appRefreshToken;
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
 
     public String getAppAuthToken() {
         return appAuthToken;
