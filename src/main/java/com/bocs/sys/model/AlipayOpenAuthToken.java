@@ -3,10 +3,10 @@ package com.bocs.sys.model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.bocs.core.base.BaseModel;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
- * 描述:<p> </p>
+ * 描述:<p>商户授权信息 </p>
  *
  * @Author: songqi
  * @Date: 2018/2/7 14:42
@@ -14,6 +14,9 @@ import java.util.Date;
 @TableName("alipay_open_auth_token")
 public class AlipayOpenAuthToken extends BaseModel{
 
+    /**
+     * 授权appId
+     */
     private String appId;
 
     /**
@@ -22,7 +25,12 @@ public class AlipayOpenAuthToken extends BaseModel{
     private String appAuthToken;
 
     /**
-     * 商户的PID
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 商户支付宝PID
      */
     private String userId;
 
@@ -39,7 +47,7 @@ public class AlipayOpenAuthToken extends BaseModel{
     /**
      * 交换令牌的有效期：日期格式
      */
-    private Date expiresInDateTime;
+    private LocalDateTime expiresInDateTime;
 
     /**
      * 刷新令牌有效期，单位秒，换算成天的话为372天
@@ -49,7 +57,7 @@ public class AlipayOpenAuthToken extends BaseModel{
     /**
      * 刷新令牌有效期：日期格式
      */
-    private Date reExpiresInDateTime;
+    private LocalDateTime reExpiresInDateTime;
 
     /**
      * 刷新令牌时使用。刷新令牌后，我们会保证老的app_auth_token从刷新开始10分钟内可继续使用，请及时替换为最新token
@@ -70,6 +78,14 @@ public class AlipayOpenAuthToken extends BaseModel{
 
     public void setAppAuthToken(String appAuthToken) {
         this.appAuthToken = appAuthToken;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 
     public String getUserId() {
@@ -96,12 +112,16 @@ public class AlipayOpenAuthToken extends BaseModel{
         this.expiresIn = expiresIn;
     }
 
-    public Date getExpiresInDateTime() {
+    public LocalDateTime getExpiresInDateTime() {
         return expiresInDateTime;
     }
 
-    public void setExpiresInDateTime(Date expiresInDateTime) {
+    public void setExpiresInDateTime(LocalDateTime expiresInDateTime) {
         this.expiresInDateTime = expiresInDateTime;
+    }
+
+    public void setReExpiresInDateTime(LocalDateTime reExpiresInDateTime) {
+        this.reExpiresInDateTime = reExpiresInDateTime;
     }
 
     public long getReExpiresIn() {
@@ -110,14 +130,6 @@ public class AlipayOpenAuthToken extends BaseModel{
 
     public void setReExpiresIn(long reExpiresIn) {
         this.reExpiresIn = reExpiresIn;
-    }
-
-    public Date getReExpiresInDateTime() {
-        return reExpiresInDateTime;
-    }
-
-    public void setReExpiresInDateTime(Date reExpiresInDateTime) {
-        this.reExpiresInDateTime = reExpiresInDateTime;
     }
 
     public String getAppRefreshToken() {
