@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+            $( '#file-pretty input[type="file"]' ).prettyFile();
+
             var $image = $(".image-crop > img")
             $($image).cropper({
                 aspectRatio: 1.618,
@@ -177,8 +179,6 @@ $(document).ready(function () {
             });
 
             $('.clockpicker').clockpicker();
-
-            $( '#file-pretty input[type="file"]' ).prettyFile();
 
         });
         var config = {
