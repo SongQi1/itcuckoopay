@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +29,23 @@ import static com.bocs.core.support.Resources.getMessage;
  * Description:<p> </p>
  * Created by songqi on 2017/7/25.
  */
-@RestController
+@Controller
 @Api(value = "登录接口", description = "登录接口")
 public class LoginController extends AbstractController<SysUser> {
 
     @Autowired
     private SysUserService sysUserService;
+
+
+    @RequestMapping("/test")
+    public String index() {
+        return "index";
+    }
+
+    @RequestMapping("/home")
+    public String home() {
+        return "index_v3";
+    }
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登录")

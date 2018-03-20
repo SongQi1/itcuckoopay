@@ -73,10 +73,10 @@ spring:
   devtools:
     restart:
       #重启排除目录
-      exclude: /static/**,/templates/**
+#      exclude: /static/**,/templates/**
 
   thymeleaf:
-    prefix: classpath:/templates
+#    prefix: classpath:/templates
     cache: false
     mode: LEGACYHTML5
   template:
