@@ -119,12 +119,12 @@ public class AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder extends Req
         return this;
     }
 
-    public String getShopingmallId() {
-        return bizContent.shopingmallId;
+    public String getShoppingMallId() {
+        return bizContent.shoppingMallId;
     }
 
-    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setShopingmallId(String shopingmallId) {
-        bizContent.shopingmallId = shopingmallId;
+    public AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder setShoppingMallId(String shoppingMallId) {
+        bizContent.shoppingMallId = shoppingMallId;
         return this;
     }
 
@@ -197,7 +197,7 @@ public class AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder extends Req
          * 商圈id
          */
         @SerializedName("shopingmall_id")
-        private String shopingmallId;
+        private String shoppingMallId;
 
         /**
          * 收费说明
@@ -228,7 +228,7 @@ public class AlipayEcoMycarParkingParkinglotinfoCreateRequestBuilder extends Req
                     ", parkingPoiid='" + parkingPoiid + '\'' +
                     ", parkingMobile='" + parkingMobile + '\'' +
                     ", payType='" + payType + '\'' +
-                    ", shopingmallId='" + shopingmallId + '\'' +
+                    ", shoppingMallId='" + shoppingMallId + '\'' +
                     ", parkingFeeDescription='" + parkingFeeDescription + '\'' +
                     ", parkingName='" + parkingName + '\'' +
                     ", timeOut='" + timeOut + '\'' +

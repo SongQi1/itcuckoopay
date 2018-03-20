@@ -86,6 +86,123 @@ public class Parkinglot extends BaseModel{
     private String parkinglotContactPhone;
 
 
+    public Long getMerchantId() {
+        return merchantId;
+    }
 
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
+    }
 
+    public String getOutParkingId() {
+        return outParkingId;
+    }
+
+    public void setOutParkingId(String outParkingId) {
+        this.outParkingId = outParkingId;
+    }
+
+    public String getParkingId() {
+        return parkingId;
+    }
+
+    public void setParkingId(String parkingId) {
+        this.parkingId = parkingId;
+    }
+
+    public String getParkingAddress() {
+        return parkingAddress;
+    }
+
+    public void setParkingAddress(String parkingAddress) {
+        this.parkingAddress = parkingAddress;
+    }
+
+    public String getParkinglotType() {
+        return parkinglotType;
+    }
+
+    public void setParkinglotType(String parkinglotType) {
+        this.parkinglotType = parkinglotType;
+    }
+
+    public String getParkingPoiid() {
+        return parkingPoiid;
+    }
+
+    public void setParkingPoiid(String parkingPoiid) {
+        this.parkingPoiid = parkingPoiid;
+    }
+
+    public String getParkingMobile() {
+        return parkingMobile;
+    }
+
+    public void setParkingMobile(String parkingMobile) {
+        this.parkingMobile = parkingMobile;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public String getShopingmallId() {
+        return shopingmallId;
+    }
+
+    public void setShopingmallId(String shopingmallId) {
+        this.shopingmallId = shopingmallId;
+    }
+
+    public long getParkingFeeRuleId() {
+        return parkingFeeRuleId;
+    }
+
+    public void setParkingFeeRuleId(long parkingFeeRuleId) {
+        this.parkingFeeRuleId = parkingFeeRuleId;
+    }
+
+    public String getParkingFeeDescription() {
+        return parkingFeeDescription;
+    }
+
+    public void setParkingFeeDescription(String parkingFeeDescription) {
+        this.parkingFeeDescription = parkingFeeDescription;
+    }
+
+    public String getParkingName() {
+        return parkingName;
+    }
+
+    public void setParkingName(String parkingName) {
+        this.parkingName = parkingName;
+    }
+
+    public String getTimeOut() {
+        return timeOut;
+    }
+
+    public void setTimeOut(String timeOut) {
+        this.timeOut = timeOut;
+    }
+
+    public String getParkinglotContact() {
+        return parkinglotContact;
+    }
+
+    public void setParkinglotContact(String parkinglotContact) {
+        this.parkinglotContact = parkinglotContact;
+    }
+
+    public String getParkinglotContactPhone() {
+        return parkinglotContactPhone;
+    }
+
+    public void setParkinglotContactPhone(String parkinglotContactPhone) {
+        this.parkinglotContactPhone = parkinglotContactPhone;
+    }
 }
