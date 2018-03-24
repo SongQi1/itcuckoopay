@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <div th:fragment="onloadJS">
+        <!-- 全局js -->
+        <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/layer/layer.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/hplus.js}"></script>
+        <script type="text/javascript" th:src="@{/js/contabs.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/content.js}"></script>
+
+        <!-- Peity -->
+        <script type="text/javascript" th:src="@{/js/plugins/peity/jquery.peity.min.js}"></script>
+        <!-- jqGrid -->
+        <script type="text/javascript" th:src="@{/js/plugins/jqgrid/i18n/grid.locale-cn.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/jqgrid/jquery.jqGrid.min.js}"></script>
+
+
+        <script type="text/javascript" th:src="@{/js/utils.js}"></script>
+
+        <!--定义根目录-->
+        <script th:fragment="ctxPath" xmlns:th="http://www.springframework.org/schema/mvc" type="text/javascript" th:inline="javascript">
+            /*<![CDATA[*/
+            var ctxPath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" +
+             #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+            /*]]>*/
+        </script>
+    </div>
+</body>
+
+</html>

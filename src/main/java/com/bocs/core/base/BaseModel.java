@@ -17,10 +17,15 @@ import java.util.Date;
  */
 @JsonIgnoreProperties(ignoreUnknown = true,value = {"createBy","updateBy","updateTime"})
 public class BaseModel extends Model implements Serializable{
+
+    @TableField(exist = false)
+    private Integer page = 1; // 当前页
+
+    @TableField(exist = false)
+    private Integer rows = 10; // 每页大小
+
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
-
-
 
     public Long getId() {
         return id;
@@ -36,5 +41,21 @@ public class BaseModel extends Model implements Serializable{
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 }

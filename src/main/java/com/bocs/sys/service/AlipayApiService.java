@@ -53,9 +53,9 @@ public class AlipayApiService {
             token.setAppRefreshToken(response.getAppRefreshToken());
             token.setUserId(response.getUserId());
             token.setExpiresIn(Long.parseLong(response.getExpiresIn()));
-            token.setExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getExpiresIn())));
+//            token.setExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getExpiresIn())));
             token.setReExpiresIn(Long.parseLong(response.getReExpiresIn()));
-            token.setReExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getReExpiresIn())));
+//            token.setReExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getReExpiresIn())));
             token.setAuthAppId(response.getAuthAppId());
             token.insert();
         }else{
@@ -81,10 +81,10 @@ public class AlipayApiService {
                 alipayOpenAuthTokenDb.setAppAuthToken(response.getAppAuthToken());
 
                 alipayOpenAuthTokenDb.setExpiresIn(Long.valueOf(response.getExpiresIn()));
-                alipayOpenAuthTokenDb.setExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getExpiresIn())));
+//                alipayOpenAuthTokenDb.setExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getExpiresIn())));
 
                 alipayOpenAuthTokenDb.setReExpiresIn(Long.valueOf(response.getReExpiresIn()));
-                alipayOpenAuthTokenDb.setReExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getReExpiresIn())));
+//                alipayOpenAuthTokenDb.setReExpiresInDateTime(DateUtils.addSeconds(new Date(), Integer.valueOf(response.getReExpiresIn())));
 
                 alipayOpenAuthTokenDb.updateById();
                 alipayOpenAuthTokenMapper.updateById(alipayOpenAuthTokenDb);

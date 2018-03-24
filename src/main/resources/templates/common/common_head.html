@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<!--title:页面要显示的标题-->
+<th:block th:fragment="commonHeader(title)">
+    <title th:text="${title}"></title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="renderer" content="webkit">
+
+    <meta name="keywords" content="支付宝,停车缴费,收银一体化,收银"/>
+    <meta name="description" content=""/>
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugins/iCheck/custom.css}">
+    <!-- jqGrid Tables -->
+    <link rel="stylesheet" th:href="@{/css/plugins/jqgrid/ui.jqgrid.css}"/>
+</th:block>
+
+
+</html>

@@ -3,6 +3,7 @@ package com.bocs.configuration;
 import com.baomidou.mybatisplus.MybatisConfiguration;
 import com.baomidou.mybatisplus.MybatisXMLLanguageDriver;
 import com.baomidou.mybatisplus.entity.GlobalConfiguration;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.mapper.AutoSqlInjector;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
@@ -59,6 +60,7 @@ public class MyBatisPlusConfig {
         globalConfig.setIdType(2);
         globalConfig.setSqlInjector(new AutoSqlInjector());
         globalConfig.setCapitalMode(true);
+        globalConfig.setFieldStrategy(FieldStrategy.NOT_EMPTY.getKey());
         return globalConfig;
 
     }

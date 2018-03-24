@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="/common/common_head :: commonHeader('布谷鸟收银系统 - 商户管理')"/>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+
+<body class="gray-bg">
+
+    <div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>商户列表</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="row">
+                    <form id="merchantForm" th:action="@{/merchant/list}" class="form-inline">
+                        <input type="hidden" id="currentPage" name="currentPage" th:value="${page}"/>
+                        <input type="hidden" name="rows" th:value="${rows}"/>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">商户名称
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control" th:value="${merchantName}" name="merchantName" placeholder="商户名称" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button id="merchantButton" type="submit" class="btn btn-primary" onclick="">
+                                <i class="fa fa-search"></i>&nbsp;查询
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="tool-div" role="group">
+                        <button type="button" class="btn btn-primary button-margin" onclick="addMerchant()">
+                            <i class="fa fa-plus"></i>&nbsp;新增
+                        </button>
+                        <button type="button" class="btn btn-primary button-margin" onclick="editMerchant()">
+                            <i class="fa fa-edit"></i>&nbsp;编辑
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="delMerchant()">
+                            <i class="fa fa-remove"></i>&nbsp;删除
+                        </button>
+                    </div>
+                </div>
+                <table id="merchant">
+                </table>
+                <div id="merchantPager"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--引入公共js-->
+    <div th:include="/common/onload_js :: onloadJS"></div>
+    <!-- Page-Level Scripts -->
+    <script>
+        var searcher = Searcher.create('#merchant',
+            [
+                {name: 'id', hidden: true},
+                {label: "商户名称", name:"merchantName", index:"merchantName", width:100, sortable:false},
+                {label: "商户类型",name:"merchantType", index: "merchantType", width: 80,sortable: false,formatter: Formatter.showDesc({'1':'选项1','2':'选项2', '3':'选项3', '4':'选项4'},'')},
+                {label: "商户联系人",name:"merchantContact", index: "merchantContact", width: 80,sortable: false},
+                {label: "商户联系人电话", name:"merchantContactPhone", index: "merchantContactPhone",width:150, sortable:false},
+                {label: "商户地址", name:"merchantAddress", index:"merchantAddress", width:100, sortable:false},
+                {label: "商户支付宝PID", name:"userId", index:"userId", width:100, sortable:false,formatter:Formatter.showDesc({'00':'上传中','01':'待确认'},'')},
+                {label: "商户支付宝账号", name:"alipayAccount", index:"alipayAccount", width:100, sortable:false},
+                {label: "签约日期", name:"contractDate", index:"contractDate", width:100, sortable:false,formatter:'date'}
+            ],
+            {
+                rownumbers: false,multiselect: true
+            }
+        );
+
+        /**
+         * 新增
+         */
+        function addMerchant() {
+            Dialog.openUrl("新增商户", ctxPath + '/merchant/toadd',{ area : ['900px','650px'], end: function () {
+                searcher.query($('#merchant').getGridParam('page'));
+            } });
+        }
+
+        /**
+         * 编辑
+         */
+        function editMerchant() {
+            var rowDatas = searcher.getSelectedRows("id");
+            if (rowDatas.length != 1) {
+                Dialog.msg("请选择一行进行编辑");
+                return;
+            }
+            Dialog.openUrl("编辑商户", ctxPath + '/merchant/toedit/'+rowDatas,{ area : ['900px','650px'], end: function () {
+                searcher.query($('#merchant').getGridParam('page'));
+            }  });
+        }
+
+        /**
+         * 删除
+         */
+        function delMerchant() {
+            var rowDatas = searcher.getSelectedRows("id");
+            if (rowDatas.length <= 0) {
+                Dialog.msg("请至少选择一行");
+                return;
+            }
+            Dialog.confirm('确定删除商户？', function(index){
+                Page.ajaxPOST(ctxPath + "/merchant/del/"+rowDatas, null, function () {
+                    Dialog.msg("删除成功", function () {
+                        searcher.query($('#merchant').getGridParam('page'));
+                    });
+                });
+            });
+
+        }
+    </script>
+</body>

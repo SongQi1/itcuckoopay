@@ -28,4 +28,9 @@ public class Constants {
      * 服务不可用。具体的异常原因参考接口返回的sub_code
      */
     public static final String ERROR   = "20000";
+
+    /**
+     * isv信息查询url
+     */
+    public static final String INTERFACE_URL = "https://www.itcuckoo.com/infoquery";
 }
